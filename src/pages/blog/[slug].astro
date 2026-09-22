@@ -253,10 +253,12 @@ const hasHeadings = filteredHeadings.length > 0;
           <AdjacentPostNav {prevPost} {nextPost} />
         </article>
 
-        <!-- 评论与 GitHub Issue 讨论区 Bento 卡片 -->
-        <div class="fuwari-card p-4 sm:p-6 border border-border/80">
-          <GiscusComments {issueUrl} {issueNumber} />
-        </div>
+        <!-- 只有启用评论或文章来自 GitHub Issue 时才显示评论区卡片，避免空白卡片占位。 -->
+        {(config.comments.enabled || issueUrl) && (
+          <div class="fuwari-card p-4 sm:p-6 border border-border/80">
+            <GiscusComments {issueUrl} {issueNumber} />
+          </div>
+        )}
       </main>
 
       <!-- 右侧目录 (TOC)：大屏作为第三列参与排版，自身 sticky 随滚动吸顶 -->
@@ -306,11 +308,12 @@ const hasHeadings = filteredHeadings.length > 0;
     for (const codeBlock of codeBlocks) {
       if (codeBlock.querySelector(".copy-code")) continue;
       const wrapper = document.createElement("div");
-      wrapper.style.position = "relative";
+      wrapper.className = "code-block-shell";
 
       const copyButton = document.createElement("button");
-      copyButton.className =
-        "copy-code absolute end-3 top-3 rounded-lg bg-muted/80 backdrop-blur-sm border border-border/60 px-2.5 py-1 text-xs text-foreground font-medium hover:bg-accent hover:text-white transition-colors";
+      copyButton.className = "copy-code";
+      copyButton.type = "button";
+      copyButton.setAttribute("aria-label", "复制代码");
       copyButton.innerHTML = copyButtonLabel;
       codeBlock.setAttribute("tabindex", "0");
       codeBlock.appendChild(copyButton);

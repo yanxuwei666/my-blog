@@ -209,11 +209,95 @@
 
   /* ===== Code Blocks & Syntax Highlighting ===== */
   .astro-code {
-    @apply outline-border flex border bg-(--shiki-light-bg) text-(--shiki-light) [&_span]:text-(--shiki-light);
+    @apply outline-border flex border;
+    background: #282c34 !important;
+    border-color: #3e4451 !important;
+    color: #abb2bf !important;
   }
 
   html[data-theme="dark"] .astro-code {
-    @apply bg-(--shiki-dark-bg) text-(--shiki-dark) [&_span]:text-(--shiki-dark);
+    background: #282c34 !important;
+    border-color: #3e4451 !important;
+    color: #abb2bf !important;
+  }
+
+  /* Shiki 双主题通过 CSS 变量提供 token 颜色；普通 text 代码行没有变量，
+     会自然继承代码块的正文颜色。 */
+  .astro-code code {
+    color: inherit !important;
+  }
+
+  .astro-code .line > span {
+    color: var(--shiki-light, inherit);
+  }
+
+  html[data-theme="dark"] .astro-code .line > span {
+    color: var(--shiki-dark, inherit);
+  }
+
+  /* macOS 编辑器风格代码块：窗口灯、顶部栏和高对比度的 IDE 深色阅读面。 */
+  .code-block-shell {
+    position: relative;
+    margin-block: 1.125rem;
+  }
+
+  .code-block-shell::before {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    inset-block-start: 1rem;
+    inset-inline-start: 1rem;
+    width: 0.65rem;
+    height: 0.65rem;
+    border-radius: 999px;
+    background: #ff5f57;
+    box-shadow: 1rem 0 0 #febc2e, 2rem 0 0 #28c840;
+    pointer-events: none;
+  }
+
+  .code-block-shell::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    inset-block-start: 2.6rem;
+    inset-inline: 0;
+    height: 1px;
+    background: rgb(171 178 191 / 26%);
+    pointer-events: none;
+  }
+
+  .app-prose .code-block-shell .astro-code {
+    margin-block: 0;
+    padding: 2.9rem 1.125rem 1.1rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 14px 30px -24px rgb(31 35 40 / 50%);
+  }
+
+  .code-block-shell .copy-code {
+    position: absolute;
+    z-index: 3;
+    inset-block-start: 0.7rem;
+    inset-inline-end: 0.75rem;
+    border: 1px solid rgb(171 178 191 / 38%);
+    border-radius: 0.5rem;
+    padding: 0.35rem 0.65rem;
+    color: #d7dae0;
+    background: rgb(255 255 255 / 10%);
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.25;
+    transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+  }
+
+  .code-block-shell .copy-code:hover {
+    border-color: var(--accent);
+    color: #ffffff;
+    background: var(--accent);
+  }
+
+  .code-block-shell .copy-code:focus-visible {
+    outline: 2px dashed var(--accent);
+    outline-offset: 2px;
   }
 
   /* Styles for Shiki transformers */

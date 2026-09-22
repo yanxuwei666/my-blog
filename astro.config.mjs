@@ -25,6 +25,15 @@ if (!process.env.SITE_URL) {
 export default defineConfig({
   site,
   output: "static",
+  markdown: {
+    shikiConfig: {
+      themes: {
+        light: "one-dark-pro",
+        dark: "one-dark-pro",
+      },
+      defaultColor: false,
+    },
+  },
   devToolbar: {
     enabled: false,
   },
