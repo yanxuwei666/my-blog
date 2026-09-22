@@ -4,7 +4,7 @@ export default defineAstroPaperConfig({
   site: {
     url: process.env.SITE_URL || "https://example.com",
     title: "个人博客",
-    description: "A Cloudflare-deployable blog powered by GitHub Issues.",
+    description: "记录真实工程问题、排查路径与可落地的技术方案。",
     author: "奋斗的小猴子",
     authorBio: "记录代码实践，分享成长路上的每一步",
     authorAvatar: "/images/shiba-avatar.png",
@@ -20,7 +20,7 @@ export default defineAstroPaperConfig({
       { title: "友链", href: "/links" },
       { title: "关于", href: "/about" },
     ],
-    // 页面主容器宽度撑满视口，仅保留两侧留白（--page-gutter）。
+    // 外层随视口伸缩，只通过 page-shell 的 gutter 保留安全边界。
     pageWidth: "100%",
   },
   posts: {

@@ -33,12 +33,12 @@ const {
 
   <!-- 主容器宽度由 site.pageWidth 控制；左侧固定 17.5rem -->
   <div class="page-shell pb-16 pt-4">
-    <div class="grid grid-cols-1 lg:grid-cols-[17.5rem_1fr] gap-4 items-start">
+    <div class="grid grid-cols-1 items-start gap-4 lg:grid-cols-[17.5rem_1fr]">
       <!-- 左侧边栏 (Profile + 归档挂件 + 标签挂件) -->
-      <aside class="space-y-4 lg:sticky lg:top-4 order-2 lg:order-1 w-full">
+      <aside class="order-2 w-full space-y-4 lg:sticky lg:top-5 lg:order-1">
         <FuwariProfile
           postsCount={postsCount}
-          yearsCount={years.length}
+          categoriesCount={categories.length}
           tagsCount={tags.length}
         />
         <FuwariArchiveWidget years={years} />

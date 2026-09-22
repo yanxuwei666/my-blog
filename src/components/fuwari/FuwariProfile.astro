@@ -4,13 +4,13 @@ import IconRss from "@/assets/icons/IconRss.svg";
 
 interface Props {
   postsCount?: number;
-  yearsCount?: number;
+  categoriesCount?: number;
   tagsCount?: number;
 }
 
 const {
   postsCount = 0,
-  yearsCount = 0,
+  categoriesCount = 0,
   tagsCount = 0,
 } = Astro.props;
 
@@ -34,18 +34,14 @@ if (!resolvedAvatar) {
 }
 ---
 
-<div class="fuwari-card p-6 flex flex-col items-center text-center">
+<div class="fuwari-card flex flex-col items-center p-5 text-center sm:p-6">
   <!-- 头像容器与光晕 -->
   <div class="relative group mb-4">
-    <div
-      class="absolute -inset-1 rounded-full bg-gradient-to-r from-accent to-emerald-400 opacity-60 blur group-hover:opacity-100 transition duration-500"
-    >
-    </div>
     <img
       src={resolvedAvatar}
       alt={authorName}
-      class="relative w-24 h-24 rounded-full object-cover border-2 border-background shadow-md transform transition duration-500 group-hover:scale-105 bg-background"
-      loading="lazy"
+      class="relative h-22 w-22 rounded-full border-4 border-accent/15 bg-background object-cover shadow-md transition duration-300 group-hover:scale-[1.03] sm:h-24 sm:w-24"
+      loading="eager"
     />
   </div>
 
@@ -59,13 +55,13 @@ if (!resolvedAvatar) {
 
   <!-- 站点数据统计小方块 -->
   <div class="grid grid-cols-3 gap-2 w-full mt-5 py-3 border-y border-border/50 text-center">
-    <a href="/archives" class="group flex flex-col items-center hover:text-accent transition-colors">
+    <a href="/archives" class="group flex flex-col items-center transition-colors hover:text-accent">
       <span class="text-xs text-muted-foreground group-hover:text-accent">文章</span>
       <span class="text-base font-bold text-foreground group-hover:text-accent mt-0.5">{postsCount}</span>
     </a>
-    <a href="/archives" class="group flex flex-col items-center hover:text-accent transition-colors">
-      <span class="text-xs text-muted-foreground group-hover:text-accent">年份</span>
-      <span class="text-base font-bold text-foreground group-hover:text-accent mt-0.5">{yearsCount}</span>
+    <a href="/categories" class="group flex flex-col items-center transition-colors hover:text-accent">
+      <span class="text-xs text-muted-foreground group-hover:text-accent">分类</span>
+      <span class="mt-0.5 text-base font-bold text-foreground group-hover:text-accent">{categoriesCount}</span>
     </a>
     <a href="/tags" class="group flex flex-col items-center hover:text-accent transition-colors">
       <span class="text-xs text-muted-foreground group-hover:text-accent">标签</span>

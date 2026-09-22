@@ -18,10 +18,15 @@ const navItems = site.nav.map(item => {
   }
   const href = getRelativeLocaleUrl(locale, item.href.replace(/^\/+/, ""));
   const path = stripTrailingSlash(href);
+  const isBlogSection = path === "/" && (
+    currentPath === "/" ||
+    currentPath.startsWith("/blog/") ||
+    currentPath.startsWith("/page/")
+  );
   return {
     title: item.title,
     href,
-    active: currentPath === path || currentPath.startsWith(`${path}/`),
+    active: isBlogSection || currentPath === path || currentPath.startsWith(`${path}/`),
   };
 });
 ---
@@ -30,7 +35,7 @@ const navItems = site.nav.map(item => {
 <header class="relative z-40 w-full transition-all duration-300">
   <div class="page-shell pt-2 sm:pt-3">
     <div
-      class="fuwari-card !rounded-2xl h-14 sm:h-16 px-3 sm:px-5 flex items-center justify-between shadow-sm bg-background/80 backdrop-blur-md border border-border/80"
+      class="fuwari-card flex h-14 items-center justify-between !rounded-2xl border border-border/80 bg-background/90 px-3 shadow-sm sm:h-16 sm:px-5"
     >
       <!-- 左侧站点 Logo / 标题，点击返回首页 -->
       <a

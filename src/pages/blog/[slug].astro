@@ -13,6 +13,7 @@ import { getReadingTime } from "@/utils/readingTime";
 import { slugifyStr } from "@/utils/slugify";
 import { toTransitionName } from "@/utils/toTransitionName";
 import { getTagUrl } from "@/utils/tagUrl";
+import { getCategoryUrl } from "@/utils/categoryUrl";
 import BackToTopButton from "./_components/BackToTopButton.astro";
 import AdjacentPostNav from "./_components/AdjacentPostNav.astro";
 import GiscusComments from "./_components/GiscusComments.astro";
@@ -65,6 +66,7 @@ const {
   updatedDate,
   issueNumber,
   issueUrl,
+  category = "未分类",
   tags = [],
 } = post.data;
 
@@ -121,7 +123,7 @@ const hasHeadings = filteredHeadings.length > 0;
       <aside class="space-y-4 lg:sticky lg:top-4 order-2 lg:order-1 w-full">
         <FuwariProfile
           postsCount={allPosts.length}
-          yearsCount={yearsList.length}
+          categoriesCount={categories.length}
           tagsCount={tagsWithCount.length}
         />
         <FuwariArchiveWidget years={yearsList} />
@@ -161,8 +163,8 @@ const hasHeadings = filteredHeadings.length > 0;
             </div>
           </div>
 
-          <!-- 文章大标题（带 Fuwari 左侧装饰点缀） -->
-          <div class="relative pl-3 border-l-4 border-accent mb-4">
+          <!-- 文章标题保持干净的档案式层级，不额外叠加侧边装饰条 -->
+          <div class="relative mb-4">
             <h1
               style={{ viewTransitionName: toTransitionName(title) }}
               class="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground leading-snug"
@@ -178,6 +180,13 @@ const hasHeadings = filteredHeadings.length > 0;
             <time datetime={pubDate.toISOString()}>
               {formatDate(pubDate)}
             </time>
+            <span>·</span>
+            <a
+              href={getCategoryUrl(category)}
+              class="font-semibold text-accent hover:underline"
+            >
+              {category}
+            </a>
             {updatedDate && (
               <>
                 <span>·</span>
@@ -268,12 +277,24 @@ const hasHeadings = filteredHeadings.length > 0;
   function initProgressBar() {
     const bar = document.getElementById("fuwari-progress");
     if (!bar) return;
-    window.addEventListener("scroll", () => {
+
+    let frame = 0;
+    const update = () => {
       const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
       bar.style.width = scrolled + "%";
-    });
+      frame = 0;
+    };
+
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (frame === 0) frame = requestAnimationFrame(update);
+      },
+      { passive: true }
+    );
+    update();
   }
   initProgressBar();
 

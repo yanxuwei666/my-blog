@@ -24,8 +24,8 @@
 
 /* ============================================================
    页面主容器宽度
-   --page-width   主容器最大宽度，页头 / 正文 / 页脚共用，保证竖向对齐。
-                  由 astro-paper.config.ts 中的 site.pageWidth 控制。
+   --page-width   主容器宽度，页头 / 正文 / 页脚共用，保证竖向对齐。
+                  由 astro-paper.config.ts 中的 site.pageWidth 控制；当前为流式宽度。
    --page-gutter  左右留白
    ============================================================ */
 :root {
@@ -41,8 +41,20 @@
 
 @utility page-shell {
   @apply mx-auto w-full;
-  max-width: var(--page-width);
+  width: min(100%, var(--page-width));
   padding-inline: var(--page-gutter);
+}
+
+@layer base {
+  ::selection {
+    background: color-mix(in srgb, var(--accent) 22%, transparent);
+    color: var(--foreground);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
 }
 
 @utility active-nav {

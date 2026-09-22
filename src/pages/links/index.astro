@@ -16,12 +16,15 @@ const { years, categories, tags } = getSidebarStats(posts);
   tags={tags}
 >
   <div
-    class="fuwari-card p-8 sm:p-14 text-center flex flex-col items-center justify-center min-h-[52vh]"
+    class="fuwari-card flex min-h-[24rem] flex-col items-center justify-center bg-accent/[0.035] p-8 text-center sm:p-14"
   >
     <h1 class="text-xl sm:text-2xl font-bold text-foreground">友链</h1>
 
     <p class="mt-2 text-sm text-muted-foreground max-w-md leading-relaxed">
-      这里还没有内容，等我慢慢补上。
+      友链页面暂时留白，后续会补充长期维护的技术博客和开源项目。
     </p>
+    <a href="/categories" class="mt-5 text-sm font-semibold text-accent transition-colors hover:text-foreground">
+      浏览文章分类 →
+    </a>
   </div>
 </FuwariBlogLayout>

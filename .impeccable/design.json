@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "world": "blueprint-archive",
+  "mode": "read",
+  "palette": {
+    "paper": "#f2f8fc",
+    "surface": "#ffffff",
+    "ink": "#17324a",
+    "mutedInk": "#5c7488",
+    "accentBlue": "#2f7eae",
+    "accentCyan": "#1aa6b7",
+    "border": "#d8e8f1",
+    "darkPaper": "#0f1d2b",
+    "darkSurface": "#152a3d"
+  },
+  "type": {
+    "interface": "system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Noto Sans SC, PingFang SC, Microsoft YaHei, sans-serif",
+    "measure": "65-75ch",
+    "monoUse": "dates, counts, Issue numbers, code"
+  },
+  "geometry": {
+    "pageWidth": "fluid",
+    "sidebarWidth": "17.5rem",
+    "radius": "0.875rem",
+    "motion": "low"
+  },
+  "signature": "indexed technical reading rail"
+}

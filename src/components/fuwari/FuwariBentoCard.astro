@@ -3,6 +3,7 @@ import type { CollectionEntry } from "astro:content";
 import { toTransitionName } from "@/utils/toTransitionName";
 import { getReadingTime } from "@/utils/readingTime";
 import { getTagUrl } from "@/utils/tagUrl";
+import { getCategoryUrl } from "@/utils/categoryUrl";
 
 type Props = {
   post: CollectionEntry<"blog">;
@@ -10,22 +11,20 @@ type Props = {
 
 const { post } = Astro.props;
 const { id, data, body } = post;
-const { title, description, tags = [] } = data;
+const { title, description, category = "未分类", tags = [] } = data;
 
 // 计算字数与阅读时长
 const reading = getReadingTime(body || "");
 const postUrl = `/blog/${id.replace(/\.(md|mdx)$/i, "")}/`;
 ---
 
-<article class="fuwari-card fuwari-card-hover group relative mb-4 flex flex-col md:flex-row overflow-hidden border border-border/70">
-  <!-- 悬浮主色装饰侧条 -->
-  <div class="fuwari-accent-bar"></div>
+<article class="fuwari-card fuwari-card-hover group relative mb-3 flex flex-col overflow-hidden">
 
   <!-- 文章信息主体 -->
-  <div class="flex-1 p-4 sm:p-5 flex flex-col justify-between">
+  <div class="flex-1 p-4 sm:p-5">
     <div>
       <!-- 头部元数据行：时间 + Issue编号 + 字数 + 阅读时长 -->
-      <div class="flex flex-wrap items-center gap-2 text-xs text-muted-foreground mb-1.5">
+      <div class="mb-2 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
         <time datetime={data.pubDate.toISOString()}>
           {new Intl.DateTimeFormat("zh-CN", {
             year: "numeric",
@@ -33,6 +32,14 @@ const postUrl = `/blog/${id.replace(/\.(md|mdx)$/i, "")}/`;
             day: "2-digit",
           }).format(data.pubDate)}
         </time>
+
+        <span class="opacity-40">·</span>
+        <a
+          href={getCategoryUrl(category)}
+          class="font-semibold text-accent/90 transition-colors hover:text-accent"
+        >
+          {category}
+        </a>
 
         {data.issueNumber && (
           <>
@@ -63,7 +70,7 @@ const postUrl = `/blog/${id.replace(/\.(md|mdx)$/i, "")}/`;
       </div>
 
       <!-- 标题：字号收紧为精致的 lg sm:text-xl -->
-      <h3 class="text-base sm:text-lg font-bold tracking-tight mb-2 leading-snug">
+      <h3 class="mb-2 text-base font-bold leading-snug tracking-tight sm:text-lg">
         <a
           href={postUrl}
           class="text-foreground group-hover:text-accent transition-colors duration-200 inline-block line-clamp-2"
@@ -76,15 +83,15 @@ const postUrl = `/blog/${id.replace(/\.(md|mdx)$/i, "")}/`;
 
       <!-- 简介摘要：字号与行高收敛 -->
       {description && (
-        <p class="text-xs sm:text-sm text-muted-foreground line-clamp-2 leading-relaxed mb-3">
+        <p class="mb-3 max-w-[78ch] text-xs leading-relaxed text-muted-foreground sm:text-sm">
           {description}
         </p>
       )}
     </div>
 
     <!-- 底部标签行与进入阅读按钮 -->
-    <div class="flex items-center justify-between pt-2 border-t border-border/40 mt-auto">
-      <div class="flex flex-wrap gap-1 items-center">
+    <div class="mt-3 flex items-start justify-between gap-3 border-t border-border/50 pt-3">
+      <div class="flex min-w-0 flex-wrap items-center gap-1">
         {tags.slice(0, 3).map((tag: string) => (
           <a
             href={getTagUrl(tag)}
@@ -95,7 +102,7 @@ const postUrl = `/blog/${id.replace(/\.(md|mdx)$/i, "")}/`;
         ))}
       </div>
 
-      <div class="flex items-center gap-3">
+      <div class="flex shrink-0 items-center gap-3 whitespace-nowrap">
         {data.issueUrl && (
           <a
             href={data.issueUrl}

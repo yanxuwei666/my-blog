@@ -8,7 +8,7 @@
   class="fixed inset-0 z-[100] hidden items-start justify-center p-4 sm:p-6 md:p-14 bg-black/50 backdrop-blur-sm transition-all duration-200"
   role="dialog"
   aria-modal="true"
-  aria-labelledby="search-input-title"
+  aria-label="搜索全站文章"
 >
   <!-- 点击遮罩关闭 -->
   <div id="search-modal-backdrop" class="fixed inset-0" aria-hidden="true"></div>
@@ -25,6 +25,7 @@
       <input
         id="fuwari-search-input"
         type="text"
+        aria-label="搜索文章标题、内容或标签"
         placeholder="搜索文章标题、内容或标签..."
         autocomplete="off"
         class="flex-1 bg-transparent border-none text-foreground placeholder:text-muted-foreground text-sm sm:text-base focus:outline-none"
@@ -34,6 +35,7 @@
       </div>
       <button
         id="close-search-btn"
+        type="button"
         class="text-muted-foreground hover:text-foreground p-1 rounded-lg transition-colors"
         aria-label="关闭搜索"
       >
@@ -83,10 +85,12 @@
     const closeBtn = document.getElementById("close-search-btn");
     const resultsContainer = document.getElementById("search-results");
     const openBtns = document.querySelectorAll("[data-open-search]");
+    let restoreFocus: HTMLElement | null = null;
 
     if (!modal || !input) return;
 
     function openModal() {
+      restoreFocus = document.activeElement as HTMLElement | null;
       modal?.classList.remove("hidden");
       modal?.classList.add("flex");
       input?.focus();
@@ -102,6 +106,8 @@
       if (resultsContainer) {
         resultsContainer.innerHTML = '<div class="py-12 text-center text-xs sm:text-sm text-muted-foreground">输入关键字快速查找全站文章...</div>';
       }
+      restoreFocus?.focus();
+      restoreFocus = null;
     }
 
     // 绑定所有打开按钮与关闭动作 (使用 onclick 保证幂等绑定)
@@ -117,27 +123,18 @@
       (window as any).__fuwariSearchKeydownBound = true;
       window.addEventListener("keydown", (e) => {
         const currentModal = document.getElementById("fuwari-search-modal");
-        const currentInput = document.getElementById("fuwari-search-input") as HTMLInputElement | null;
         if (!currentModal) return;
 
         if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
           e.preventDefault();
           if (currentModal.classList.contains("hidden")) {
-            currentModal.classList.remove("hidden");
-            currentModal.classList.add("flex");
-            currentInput?.focus();
-            document.body.style.overflow = "hidden";
-            getPagefind();
+            openModal();
           } else {
-            currentModal.classList.add("hidden");
-            currentModal.classList.remove("flex");
-            document.body.style.overflow = "";
+            closeModal();
           }
         }
         if (e.key === "Escape" && !currentModal.classList.contains("hidden")) {
-          currentModal.classList.add("hidden");
-          currentModal.classList.remove("flex");
-          document.body.style.overflow = "";
+          closeModal();
         }
       });
     }
