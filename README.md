@@ -147,10 +147,11 @@ ISSUE_REPO=OWNER/REPO GITHUB_TOKEN=YOUR_TOKEN npm run sync:issues
 <!-- issue-blog-meta
 pubDate: 2026-06-27
 updatedDate: 2026-06-27
+category: 后端框架
 -->
 ```
 
-不写时默认使用 Issue 创建时间作为 `pubDate`，Issue 更新时间作为 `updatedDate`。
+`category` 是文章唯一所属的分类，`tags` 则来自 Issue 标签，可以有多个。不写分类时默认归入“未分类”。不写日期时默认使用 Issue 创建时间作为 `pubDate`，Issue 更新时间作为 `updatedDate`。
 
 ## 配置项
 

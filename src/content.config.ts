@@ -11,6 +11,7 @@ const blog = defineCollection({
     updatedDate: z.coerce.date().optional(),
     issueNumber: z.number().optional(),
     issueUrl: z.url().optional(),
+    category: z.string().default("未分类"),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
   }),

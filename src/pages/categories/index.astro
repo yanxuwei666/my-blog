@@ -1,0 +1,52 @@
+---
+import FuwariBlogLayout from "@/layouts/FuwariBlogLayout.astro";
+import { getPosts, getSidebarStats } from "@/lib/posts";
+import { getCategoryUrl } from "@/utils/categoryUrl";
+import config from "@/config";
+
+const posts = await getPosts();
+const { years, categories, tags } = getSidebarStats(posts);
+---
+
+<FuwariBlogLayout
+  title={`文章分类 | ${config.site.title}`}
+  description="按主题领域浏览文章"
+  postsCount={posts.length}
+  years={years}
+  categories={categories}
+  tags={tags}
+>
+  <div class="fuwari-card p-5 sm:p-8 border border-border/80">
+    <div class="flex items-center justify-between pb-4 mb-6 border-b border-border/60">
+      <div class="flex items-center gap-2 font-bold text-base sm:text-lg text-foreground">
+        <span class="w-1.5 h-4 rounded-full bg-accent"></span>
+        <span>文章分类</span>
+      </div>
+      <span class="text-xs text-muted-foreground font-mono">
+        共 {categories.length} 个分类
+      </span>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      {categories.map(({ category, count }) => (
+        <a
+          href={getCategoryUrl(category)}
+          class="group flex items-center justify-between rounded-xl border border-border/70 bg-muted/20 px-4 py-3 hover:border-accent/50 hover:bg-accent/10 transition-all"
+        >
+          <span class="font-semibold text-sm text-foreground group-hover:text-accent transition-colors">
+            {category}
+          </span>
+          <span class="text-xs text-muted-foreground group-hover:text-accent font-mono transition-colors">
+            {count} 篇 →
+          </span>
+        </a>
+      ))}
+
+      {categories.length === 0 && (
+        <p class="py-12 text-center text-sm text-muted-foreground sm:col-span-2">
+          暂无文章分类
+        </p>
+      )}
+    </div>
+  </div>
+</FuwariBlogLayout>

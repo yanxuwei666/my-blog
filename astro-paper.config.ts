@@ -15,6 +15,7 @@ export default defineAstroPaperConfig({
     nav: [
       { title: "作品", href: "/works" },
       { title: "博客", href: "/" },
+      { title: "分类", href: "/categories" },
       { title: "归档", href: "/archives" },
       { title: "友链", href: "/links" },
       { title: "关于", href: "/about" },

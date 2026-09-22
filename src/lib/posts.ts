@@ -19,10 +19,14 @@ export function formatDate(date: Date) {
 
 /** 侧边栏「时间归档」和「标签云」需要的统计，所有列表页用的是同一份 */
 export function getSidebarStats(posts: CollectionEntry<"blog">[]) {
+  const categoryCounts = new Map<string, number>();
   const tagCounts = new Map<string, number>();
   const yearCounts = new Map<string, number>();
 
   for (const post of posts) {
+    const category = post.data.category || "未分类";
+    categoryCounts.set(category, (categoryCounts.get(category) ?? 0) + 1);
+
     for (const tag of post.data.tags) {
       tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
     }
@@ -30,15 +34,19 @@ export function getSidebarStats(posts: CollectionEntry<"blog">[]) {
     yearCounts.set(year, (yearCounts.get(year) ?? 0) + 1);
   }
 
-  const byCountThenName = (
-    a: { tag: string; count: number },
-    b: { tag: string; count: number }
-  ) =>
-    b.count - a.count || a.tag.localeCompare(b.tag, "zh-CN");
+  const byCountThenName = <T extends { count: number }>(
+    a: T,
+    b: T,
+    getName: (item: T) => string
+  ) => b.count - a.count || getName(a).localeCompare(getName(b), "zh-CN");
 
   return {
-    tags: Array.from(tagCounts, ([tag, count]) => ({ tag, count })).sort(
-      byCountThenName
+    categories: Array.from(categoryCounts, ([category, count]) => ({
+      category,
+      count,
+    })).sort((a, b) => byCountThenName(a, b, item => item.category)),
+    tags: Array.from(tagCounts, ([tag, count]) => ({ tag, count })).sort((a, b) =>
+      byCountThenName(a, b, item => item.tag)
     ),
     years: Array.from(yearCounts, ([year, count]) => ({ year, count })).sort(
       (a, b) => Number(b.year) - Number(a.year)

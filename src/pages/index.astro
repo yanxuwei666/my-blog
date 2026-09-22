@@ -5,7 +5,7 @@ import { buildPostPager, getPosts, getSidebarStats } from "@/lib/posts";
 import config from "@/config";
 
 const posts = await getPosts();
-const { years, tags } = getSidebarStats(posts);
+const { years, categories, tags } = getSidebarStats(posts);
 
 const page = buildPostPager(posts, {
   pageSize: config.posts.perIndex,
@@ -19,7 +19,8 @@ const page = buildPostPager(posts, {
   description={config.site.description}
   postsCount={posts.length}
   years={years}
+  categories={categories}
   tags={tags}
 >
-  <FuwariPostList page={page} archiveCta />
+  <FuwariPostList page={page} />
 </FuwariBlogLayout>

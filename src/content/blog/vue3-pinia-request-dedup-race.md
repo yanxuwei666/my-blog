@@ -2,6 +2,7 @@
 title: "Vue 3 列表页的三个老问题：竞态、重复请求和翻页时的一片空白"
 description: "搜索框快速输入时后到的旧响应覆盖新结果，路由来回切换时同一份数据请求三遍，翻页时整块表格闪一下空白。这三个问题不需要新库，用 AbortController、一个请求缓存层和 Pinia 就能收掉。"
 pubDate: 2026-06-26
+category: "前端应用"
 tags: ["vue", "javascript", "frontend", "state-management"]
 draft: false
 ---

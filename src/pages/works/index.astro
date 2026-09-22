@@ -1,24 +1,27 @@
 ---
-import AstroPaperLayout from "@/layouts/AstroPaperLayout.astro";
-import Header from "@/components/Header.astro";
-import Footer from "@/components/Footer.astro";
+import FuwariBlogLayout from "@/layouts/FuwariBlogLayout.astro";
+import { getPosts, getSidebarStats } from "@/lib/posts";
 import config from "@/config";
+
+const posts = await getPosts();
+const { years, categories, tags } = getSidebarStats(posts);
 ---
 
-<AstroPaperLayout title={`作品 | ${config.site.title}`} description="作品集">
-  <Header />
+<FuwariBlogLayout
+  title={`作品 | ${config.site.title}`}
+  description="作品集"
+  postsCount={posts.length}
+  years={years}
+  categories={categories}
+  tags={tags}
+>
+  <div
+    class="fuwari-card p-8 sm:p-14 text-center flex flex-col items-center justify-center min-h-[52vh]"
+  >
+    <h1 class="text-xl sm:text-2xl font-bold text-foreground">作品</h1>
 
-  <div class="page-shell pt-4 pb-16 grow">
-    <div
-      class="fuwari-card p-8 sm:p-14 border border-border/80 text-center flex flex-col items-center justify-center min-h-[52vh]"
-    >
-      <h1 class="text-xl sm:text-2xl font-bold text-foreground">作品</h1>
-
-      <p class="mt-2 text-sm text-muted-foreground max-w-md leading-relaxed">
-        这里还没有内容，等我慢慢补上。
-      </p>
-    </div>
+    <p class="mt-2 text-sm text-muted-foreground max-w-md leading-relaxed">
+      这里还没有内容，等我慢慢补上。
+    </p>
   </div>
-
-  <Footer />
-</AstroPaperLayout>
+</FuwariBlogLayout>

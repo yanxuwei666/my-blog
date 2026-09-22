@@ -2,6 +2,7 @@
 title: "React 重渲染排查：什么时候该用 memo、useMemo、useCallback"
 description: "React 的性能问题多数不是算得慢，而是白算了。先定位是谁触发了渲染，再决定要不要 memo，顺序反了就会得到一堆没有收益的缓存代码。"
 pubDate: 2026-09-03
+category: "前端应用"
 tags: ["react", "javascript", "frontend", "performance"]
 draft: false
 ---

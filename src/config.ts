@@ -11,6 +11,7 @@ const DEFAULT_PAGE_WIDTH = "100%";
 
 const DEFAULT_NAV = [
   { title: "首页", href: "/" },
+  { title: "分类", href: "/categories" },
   { title: "归档", href: "/archives" },
   { title: "标签", href: "/tags" },
 ];

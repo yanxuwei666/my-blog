@@ -2,6 +2,7 @@
 title: "消息怎么做到不丢、不重、不乱序：生产、Broker、消费三段链路逐个设防"
 description: "「消息丢了」是一个结论，不是一个原因。它可能发生在发送端没拿到 ack、Broker 刷盘前宕机、消费者手动提交位点却处理失败、或者死信队列没人看。这篇把三段链路拆开，每段给出配置和验证方法。"
 pubDate: 2026-04-10
+category: "中间件"
 tags: ["mq", "backend", "distributed", "java"]
 draft: false
 ---

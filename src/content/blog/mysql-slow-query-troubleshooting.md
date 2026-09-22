@@ -2,6 +2,7 @@
 title: "MySQL 慢查询排查：从执行计划到索引失效的六种情况"
 description: "慢查询的排查路径其实很短：开慢日志、抓 SQL、看执行计划、确认索引为什么没被用上。真正花时间的是最后一步，因为大部分索引失效都来自写法而不是表结构。"
 pubDate: 2026-09-11
+category: "数据库技术"
 tags: ["mysql", "database", "performance", "index"]
 draft: false
 ---

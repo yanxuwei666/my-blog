@@ -1,39 +1,18 @@
 ---
 import FuwariBlogLayout from "@/layouts/FuwariBlogLayout.astro";
-import { getPosts } from "@/lib/posts";
+import { getPosts, getSidebarStats } from "@/lib/posts";
 import { getTagUrl } from "@/utils/tagUrl";
 import config from "@/config";
 
 const posts = await getPosts();
-
-// 统计所有标签及其篇数
-const tagCounts = new Map<string, number>();
-const yearsMap = new Map<string, number>();
-
-posts.forEach(post => {
-  post.data.tags.forEach(tag => {
-    tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
-  });
-
-  const year = post.data.pubDate.getFullYear().toString();
-  yearsMap.set(year, (yearsMap.get(year) ?? 0) + 1);
-});
-
-const tagsWithCount = Array.from(tagCounts, ([tag, count]) => ({
-  tag,
-  count,
-})).sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag, "zh-CN"));
-
-const yearsList = Array.from(yearsMap, ([year, count]) => ({
-  year,
-  count,
-})).sort((a, b) => Number(b.year) - Number(a.year));
+const { years: yearsList, categories, tags: tagsWithCount } = getSidebarStats(posts);
 ---
 
 <FuwariBlogLayout
   title={`标签云 | ${config.site.title}`}
   postsCount={posts.length}
   years={yearsList}
+  categories={categories}
   tags={tagsWithCount}
 >
   <!-- 标签聚合 Bento 卡片 -->

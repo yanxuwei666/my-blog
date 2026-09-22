@@ -34,7 +34,7 @@ interface SiteConfig {
   timezone?: string;
   /** Text direction */
   dir?: "ltr" | "rtl" | "auto";
-  /** Top navigation entries. Defaults to 首页 / 归档 / 标签. */
+  /** Top navigation entries. Defaults to 首页 / 分类 / 归档 / 标签. */
   nav?: NavItem[];
   /**
    * Max width of the page shell (header, content and footer share it).

@@ -2,6 +2,7 @@
 title: "Java 服务 GC 排查入门：先看日志再调参数，四步定位 Full GC 元凶"
 description: "接口偶发超时、CPU 周期性打满、监控里 Old 区锯齿状爬升——多数人会直接去抄一堆 JVM 参数。正确的顺序是先开 GC 日志确认现象，再用 jstat/MAT/Arthas 找到根因，最后才动参数。"
 pubDate: 2025-12-19
+category: "工程实践"
 tags: ["jvm", "java", "performance", "troubleshooting"]
 draft: false
 ---

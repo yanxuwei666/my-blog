@@ -96,9 +96,11 @@ function excerpt(markdown) {
 
 function markdownForIssue(issue) {
   const body = stripSyncMeta(issue.body || "").trim();
+  const meta = extractMeta(issue.body);
   const tags = issue.labels
     .map(label => label.name)
     .filter(label => label !== issueLabel);
+  const category = meta.category?.trim() || "未分类";
   const updatedDate = getUpdatedDate(issue);
   const frontmatter = [
     "---",
@@ -108,6 +110,7 @@ function markdownForIssue(issue) {
     updatedDate ? `updatedDate: ${updatedDate}` : "",
     `issueNumber: ${issue.number}`,
     `issueUrl: ${issue.html_url}`,
+    `category: "${yamlString(category)}"`,
     `tags: [${tags.map(tag => `"${yamlString(tag)}"`).join(", ")}]`,
     "draft: false",
     "---",

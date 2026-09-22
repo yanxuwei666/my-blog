@@ -6,8 +6,9 @@ import Footer from "@/components/Footer.astro";
 import FuwariProfile from "@/components/fuwari/FuwariProfile.astro";
 import FuwariToc from "@/components/fuwari/FuwariToc.astro";
 import FuwariArchiveWidget from "@/components/fuwari/FuwariArchiveWidget.astro";
+import FuwariCategoryWidget from "@/components/fuwari/FuwariCategoryWidget.astro";
 import FuwariTagsWidget from "@/components/fuwari/FuwariTagsWidget.astro";
-import { getPosts, formatDate } from "@/lib/posts";
+import { getPosts, formatDate, getSidebarStats } from "@/lib/posts";
 import { getReadingTime } from "@/utils/readingTime";
 import { slugifyStr } from "@/utils/slugify";
 import { toTransitionName } from "@/utils/toTransitionName";
@@ -86,28 +87,7 @@ if (headings.length === 0 && post.body) {
   }
 }
 
-// 提取全站标签统计
-const tagCounts = new Map<string, number>();
-const yearsMap = new Map<string, number>();
-
-allPosts.forEach(p => {
-  p.data.tags.forEach(t => {
-    tagCounts.set(t, (tagCounts.get(t) ?? 0) + 1);
-  });
-
-  const year = p.data.pubDate.getFullYear().toString();
-  yearsMap.set(year, (yearsMap.get(year) ?? 0) + 1);
-});
-
-const tagsWithCount = Array.from(tagCounts, ([tag, count]) => ({
-  tag,
-  count,
-})).sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag, "zh-CN"));
-
-const yearsList = Array.from(yearsMap, ([year, count]) => ({
-  year,
-  count,
-})).sort((a, b) => Number(b.year) - Number(a.year));
+const { years: yearsList, categories, tags: tagsWithCount } = getSidebarStats(allPosts);
 
 // 过滤用于目录展示的标题
 const minDepth = Math.min(...headings.map(h => h.depth), 2);
@@ -141,10 +121,11 @@ const hasHeadings = filteredHeadings.length > 0;
       <aside class="space-y-4 lg:sticky lg:top-4 order-2 lg:order-1 w-full">
         <FuwariProfile
           postsCount={allPosts.length}
-          categoriesCount={yearsList.length}
+          yearsCount={yearsList.length}
           tagsCount={tagsWithCount.length}
         />
         <FuwariArchiveWidget years={yearsList} />
+        <FuwariCategoryWidget categories={categories} />
         <FuwariTagsWidget tags={tagsWithCount} />
       </aside>
 

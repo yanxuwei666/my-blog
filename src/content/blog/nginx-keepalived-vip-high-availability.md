@@ -2,6 +2,7 @@
 title: "Nginx + Keepalived 做高可用入口：VIP 漂移、误切换和健康检查写法"
 description: "两台 Nginx + 一个虚拟 IP 是最基础的入口高可用方案，但真正上线时会遇到脑裂、健康检查只探进程不探服务、以及 Nginx reload 时被误判下线。这篇给一套能直接照抄的配置和排查顺序。"
 pubDate: 2026-06-12
+category: "工程基础设施"
 tags: ["nginx", "devops", "high-availability", "linux"]
 draft: false
 ---

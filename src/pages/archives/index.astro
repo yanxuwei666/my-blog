@@ -4,7 +4,7 @@ import { getPosts, getSidebarStats } from "@/lib/posts";
 import config from "@/config";
 
 const posts = await getPosts();
-const { years, tags } = getSidebarStats(posts);
+const { years, categories, tags } = getSidebarStats(posts);
 
 // 按年份分组文章，归档页使用参考站的时间轴布局。
 const postsByYear = new Map<string, typeof posts>();
@@ -24,6 +24,7 @@ const sortedYears = Array.from(postsByYear.keys()).sort(
   title={`文章归档 | ${config.site.title}`}
   postsCount={posts.length}
   years={years}
+  categories={categories}
   tags={tags}
 >
   <div class="fuwari-card p-5 sm:p-8 border border-border/80">

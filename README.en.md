@@ -147,10 +147,11 @@ To pin publish dates, add this block to the issue body:
 <!-- issue-blog-meta
 pubDate: 2026-06-27
 updatedDate: 2026-06-27
+category: backend-framework
 -->
 ```
 
-If you do not add metadata, `pubDate` defaults to the issue creation time and `updatedDate` defaults to the issue update time.
+`category` is the single topic area for an article, while issue labels become multi-value `tags`. If no category is provided, the post is placed in `未分类`. If you do not add date metadata, `pubDate` defaults to the issue creation time and `updatedDate` defaults to the issue update time.
 
 ## Config
 

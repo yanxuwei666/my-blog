@@ -1,0 +1,42 @@
+---
+import { getCategoryUrl } from "@/utils/categoryUrl";
+
+interface Props {
+  categories: { category: string; count?: number }[];
+  limit?: number;
+}
+
+const { categories = [], limit = 8 } = Astro.props;
+const displayCategories = categories.slice(0, limit);
+---
+
+<div class="fuwari-card p-5 mt-4">
+  <div class="flex items-center justify-between mb-3.5">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-4 rounded-full bg-accent"></span>
+      <h4 class="font-bold text-sm text-foreground">分类云</h4>
+    </div>
+    <a href="/categories" class="text-xs text-muted-foreground hover:text-accent transition-colors">
+      全部 ({categories.length}) →
+    </a>
+  </div>
+
+  <div class="space-y-1">
+    {displayCategories.map(item => (
+      <a
+        href={getCategoryUrl(item.category)}
+        class="flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs text-foreground/80 hover:bg-accent/10 hover:text-accent transition-colors group"
+      >
+        <span class="group-hover:translate-x-0.5 transition-transform">{item.category}</span>
+        {item.count !== undefined && (
+          <span class="px-2 py-0.5 rounded-full bg-muted/60 text-[10px] text-muted-foreground group-hover:bg-accent/20 group-hover:text-accent font-mono">
+            {item.count} 篇
+          </span>
+        )}
+      </a>
+    ))}
+    {categories.length === 0 && (
+      <span class="text-xs text-muted-foreground">暂无分类</span>
+    )}
+  </div>
+</div>

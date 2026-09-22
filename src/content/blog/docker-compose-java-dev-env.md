@@ -2,6 +2,7 @@
 title: "用 Docker Compose 起一套 Java 本地开发环境（MySQL + Redis + Nacos）"
 description: "本地开发环境的痛点通常不是装不上，而是换台机器就要重来。把 MySQL、Redis、Nacos 写进一份 compose 文件，连上初始化脚本，新同事一条命令就能跑起来。"
 pubDate: 2026-08-12
+category: "工程基础设施"
 tags: ["docker", "devops", "java", "local-environment"]
 draft: false
 ---

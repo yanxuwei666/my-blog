@@ -2,6 +2,7 @@
 title: "接口幂等落地：唯一索引、token 令牌和状态机，哪种适合你的写接口"
 description: "用户连点两次、Feign 超时重试、MQ 重复投递，最后都变成数据库里两条一样的订单。幂等不是加一句「先查再插」，而是要保证同一个业务请求重复执行 N 次，结果和执行一次完全一样。"
 pubDate: 2026-07-10
+category: "后端框架"
 tags: ["springboot", "java", "backend", "idempotency"]
 draft: false
 ---

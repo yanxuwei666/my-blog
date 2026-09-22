@@ -4,13 +4,13 @@ import IconRss from "@/assets/icons/IconRss.svg";
 
 interface Props {
   postsCount?: number;
-  categoriesCount?: number;
+  yearsCount?: number;
   tagsCount?: number;
 }
 
 const {
   postsCount = 0,
-  categoriesCount = 0,
+  yearsCount = 0,
   tagsCount = 0,
 } = Astro.props;
 
@@ -65,7 +65,7 @@ if (!resolvedAvatar) {
     </a>
     <a href="/archives" class="group flex flex-col items-center hover:text-accent transition-colors">
       <span class="text-xs text-muted-foreground group-hover:text-accent">年份</span>
-      <span class="text-base font-bold text-foreground group-hover:text-accent mt-0.5">{categoriesCount}</span>
+      <span class="text-base font-bold text-foreground group-hover:text-accent mt-0.5">{yearsCount}</span>
     </a>
     <a href="/tags" class="group flex flex-col items-center hover:text-accent transition-colors">
       <span class="text-xs text-muted-foreground group-hover:text-accent">标签</span>

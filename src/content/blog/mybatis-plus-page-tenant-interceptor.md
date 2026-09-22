@@ -2,6 +2,7 @@
 title: "MyBatis-Plus 分页与多租户插件：拦截器顺序、count 优化和三个不生效的坑"
 description: "分页插件不是加个依赖就能用。拦截器注册顺序不对，租户条件会被分页 count 语句漏掉；深分页时 limit 100000,20 依然会扫十万行。这篇把改写机制、生效边界和排查顺序理一遍。"
 pubDate: 2026-07-24
+category: "后端框架"
 tags: ["mybatis", "java", "backend", "database"]
 draft: false
 ---

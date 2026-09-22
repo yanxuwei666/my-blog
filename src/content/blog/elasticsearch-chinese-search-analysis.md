@@ -2,6 +2,7 @@
 title: "Elasticsearch 中文检索：分词器选型、相关性调优和三个高频查询写法"
 description: "搜索「苹果手机」却搜不到「iPhone 手机壳」，多半是分词器没选对；搜索结果第一条永远不相关，是 BM25 字段权重没调。这篇从 mapping 写到查询，给一套能落地的中文检索方案。"
 pubDate: 2026-05-22
+category: "数据库技术"
 tags: ["elasticsearch", "search", "backend", "java"]
 draft: false
 ---

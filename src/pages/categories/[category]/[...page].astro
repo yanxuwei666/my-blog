@@ -4,56 +4,50 @@ import FuwariBlogLayout from "@/layouts/FuwariBlogLayout.astro";
 import FuwariBentoCard from "@/components/fuwari/FuwariBentoCard.astro";
 import Pagination from "@/components/Pagination.astro";
 import { getPosts, getSidebarStats } from "@/lib/posts";
-import { getTagSlug } from "@/utils/tagUrl";
+import { getCategorySlug } from "@/utils/categoryUrl";
 import config from "@/config";
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   const posts = await getPosts();
+  const categoryMap = new Map<string, string>();
 
-  // 聚合所有去重后的 tag 映射: slug -> 原始 tag 名称
-  const tagMap = new Map<string, string>();
   posts.forEach(post => {
-    post.data.tags.forEach(tag => {
-      const slug = getTagSlug(tag);
-      if (!tagMap.has(slug)) {
-        tagMap.set(slug, tag);
-      }
-    });
+    const category = post.data.category || "未分类";
+    categoryMap.set(getCategorySlug(category), category);
   });
 
-  return Array.from(tagMap.entries()).flatMap(([slug, tagName]) => {
-    const tagPosts = posts.filter(post =>
-      post.data.tags.some(t => getTagSlug(t) === slug)
+  return Array.from(categoryMap.entries()).flatMap(([slug, categoryName]) => {
+    const categoryPosts = posts.filter(
+      post => (post.data.category || "未分类") === categoryName
     );
 
-    return paginate(tagPosts, {
-      params: { tag: slug },
-      props: { tagName, slug },
+    return paginate(categoryPosts, {
+      params: { category: slug },
+      props: { categoryName },
       pageSize: 10,
     });
   });
 }
 
-const { page, tagName } = Astro.props;
+const { page, categoryName } = Astro.props;
 const allPosts = await getPosts();
-
-const { years: yearsList, categories, tags: tagsWithCount } = getSidebarStats(allPosts);
+const { years, categories, tags } = getSidebarStats(allPosts);
 ---
 
 <FuwariBlogLayout
-  title={`标签: ${tagName} | ${config.site.title}`}
+  title={`分类: ${categoryName} | ${config.site.title}`}
+  description={`查看分类“${categoryName}”下的全部文章`}
   postsCount={allPosts.length}
-  years={yearsList}
+  years={years}
   categories={categories}
-  tags={tagsWithCount}
+  tags={tags}
 >
-  <!-- 顶部标签标题小卡片 -->
   <div class="fuwari-card p-4 mb-4 flex items-center justify-between border border-border/70">
     <div class="flex items-center gap-2 font-bold text-sm sm:text-base text-foreground">
       <span class="w-1.5 h-4 rounded-full bg-accent"></span>
-      <span>标签筛选：</span>
-      <span class="px-2.5 py-0.5 rounded-lg bg-accent/15 text-accent font-mono text-xs">
-        #{tagName}
+      <span>分类筛选：</span>
+      <span class="px-2.5 py-0.5 rounded-lg bg-accent/15 text-accent text-xs">
+        {categoryName}
       </span>
     </div>
     <div class="text-xs text-muted-foreground font-mono">
@@ -61,14 +55,12 @@ const { years: yearsList, categories, tags: tagsWithCount } = getSidebarStats(al
     </div>
   </div>
 
-  <!-- 文章 Bento 卡片列表 -->
   <div class="space-y-4">
     {page.data.map(post => (
       <FuwariBentoCard post={post} />
     ))}
   </div>
 
-  <!-- 分页控件 -->
   {page.lastPage > 1 && (
     <div class="mt-6 flex justify-center">
       <Pagination {page} />

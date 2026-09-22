@@ -2,6 +2,7 @@
 title: "团队协作的 Git 工作流：分支模型、rebase 时机与冲突处理"
 description: "Git 冲突本身不可怕，可怕的是团队没有统一约定。分支怎么切、什么时候允许 rebase、PR 要多小、合并用哪种方式——这四件事定下来，大部分协作摩擦就消失了。"
 pubDate: 2026-08-19
+category: "工程实践"
 tags: ["git", "workflow", "code-review"]
 draft: false
 ---

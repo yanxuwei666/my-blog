@@ -4,6 +4,7 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import FuwariProfile from "@/components/fuwari/FuwariProfile.astro";
 import FuwariArchiveWidget from "@/components/fuwari/FuwariArchiveWidget.astro";
+import FuwariCategoryWidget from "@/components/fuwari/FuwariCategoryWidget.astro";
 import FuwariTagsWidget from "@/components/fuwari/FuwariTagsWidget.astro";
 import config from "@/config";
 
@@ -12,6 +13,7 @@ interface Props {
   description?: string;
   postsCount?: number;
   years?: { year: string; count: number }[];
+  categories?: { category: string; count?: number }[];
   tags?: { tag: string; count?: number }[];
 }
 
@@ -20,6 +22,7 @@ const {
   description = config.site.description,
   postsCount = 0,
   years = [],
+  categories = [],
   tags = [],
 } = Astro.props;
 ---
@@ -35,10 +38,11 @@ const {
       <aside class="space-y-4 lg:sticky lg:top-4 order-2 lg:order-1 w-full">
         <FuwariProfile
           postsCount={postsCount}
-          categoriesCount={years.length}
+          yearsCount={years.length}
           tagsCount={tags.length}
         />
         <FuwariArchiveWidget years={years} />
+        <FuwariCategoryWidget categories={categories} />
         <FuwariTagsWidget tags={tags} />
       </aside>
 

@@ -6,10 +6,9 @@ import type { PostPager } from "@/lib/posts";
 interface Props {
   page: PostPager;
   withYearAnchors?: boolean;
-  archiveCta?: boolean;
 }
 
-const { page, withYearAnchors = false, archiveCta = false } = Astro.props;
+const { page, withYearAnchors = false } = Astro.props;
 const isLastPage = !page.url.next;
 ---
 
@@ -41,7 +40,6 @@ const isLastPage = !page.url.next;
   data-last={page.lastPage}
   data-total={page.total}
   data-next={page.url.next ?? ""}
-  data-archive-cta={archiveCta ? "true" : "false"}
 >
   <Pagination page={page} />
 </div>
@@ -53,23 +51,6 @@ const isLastPage = !page.url.next;
     </p>
   )
 }
-
-{archiveCta && (
-  <div id="archive-cta" class:list={["fuwari-card mt-4 p-8 sm:p-10 text-center", { hidden: !isLastPage }]}>
-    <p class="text-sm sm:text-base font-semibold text-muted-foreground">
-      想要按时间倒叙查阅所有历年历史文章？
-    </p>
-    <a
-      href="/archives"
-      class="mt-4 inline-flex items-center gap-2 rounded-xl bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
-    >
-      前往完整归档时间轴
-      <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6" />
-      </svg>
-    </a>
-  </div>
-)}
 
 <script is:inline data-astro-rerun>
   function initPostListAutoLoad() {
@@ -117,7 +98,6 @@ const isLastPage = !page.url.next;
           observer.disconnect();
           wrap.remove();
           tip.textContent = `已经到底了 · 共 ${total} 篇文章`;
-          document.getElementById("archive-cta")?.classList.remove("hidden");
         }
       } catch (error) {
         observer.disconnect();
