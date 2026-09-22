@@ -1,13 +1,16 @@
 ---
-import type { Page } from "astro";
-import type { CollectionEntry } from "astro:content";
 import IconArrowLeft from "@/assets/icons/IconArrowLeft.svg";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
 import LinkButton from "./LinkButton.astro";
 import { useTranslations } from "@/i18n";
 
+/** Astro 的 Page<T> 和本地构造的 pager 都满足这个结构 */
 type Props = {
-  page: Page<CollectionEntry<"blog">>;
+  page: {
+    currentPage: number;
+    lastPage: number;
+    url: { prev?: string; next?: string };
+  };
 };
 
 const { page } = Astro.props;

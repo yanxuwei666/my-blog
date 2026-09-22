@@ -130,8 +130,13 @@ const hasHeadings = filteredHeadings.length > 0;
   <div id="fuwari-progress" class="fixed top-0 left-0 h-1 bg-accent z-50 transition-all duration-150" style="width: 0%"></div>
 
   <!-- 详情页主容器 -->
-  <div class="relative max-w-[75rem] mx-auto px-4 sm:px-6 w-full pt-4 pb-16">
-    <div class="grid grid-cols-1 lg:grid-cols-[17.5rem_1fr] gap-4 items-start">
+  <div class="page-shell pt-4 pb-16">
+    <div
+      class:list={[
+        "grid grid-cols-1 gap-4 items-start lg:grid-cols-[17.5rem_1fr]",
+        hasHeadings && "xl:grid-cols-[17.5rem_1fr_15rem]",
+      ]}
+    >
       <!-- 左侧边栏：Profile 卡片 + 标签/归档挂件 -->
       <aside class="space-y-4 lg:sticky lg:top-4 order-2 lg:order-1 w-full">
         <FuwariProfile
@@ -263,16 +268,14 @@ const hasHeadings = filteredHeadings.length > 0;
           <GiscusComments {issueUrl} {issueNumber} />
         </div>
       </main>
-    </div>
 
-    <!-- 右侧目录 (TOC)：绝对定位撑满主容器高度，内部 sticky 随滚动吸顶 -->
-    {hasHeadings && (
-      <aside class="hidden xl:block absolute left-[calc(100%+1rem)] top-0 h-full w-[14rem] 2xl:w-[16rem] pointer-events-none">
-        <div class="sticky top-4 pointer-events-auto">
+      <!-- 右侧目录 (TOC)：大屏作为第三列参与排版，自身 sticky 随滚动吸顶 -->
+      {hasHeadings && (
+        <aside class="order-3 hidden xl:block xl:sticky xl:top-4">
           <FuwariToc headings={headings} />
-        </div>
-      </aside>
-    )}
+        </aside>
+      )}
+    </div>
   </div>
 
   <BackToTopButton />

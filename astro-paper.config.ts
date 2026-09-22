@@ -11,6 +11,16 @@ export default defineAstroPaperConfig({
     lang: "zh-CN",
     timezone: "Asia/Shanghai",
     dir: "ltr",
+    // href 留空的标签只占位、不跳转，等内容补上再填地址
+    nav: [
+      { title: "作品", href: "" },
+      { title: "博客", href: "/" },
+      { title: "归档", href: "/archives" },
+      { title: "友链", href: "" },
+      { title: "关于", href: "" },
+    ],
+    // 页面主容器最大宽度，页头/正文/页脚共用。归档与博客列表保持居中窄版布局。
+    pageWidth: "75rem",
   },
   posts: {
     perPage: 8,

@@ -1,23 +1,12 @@
 ---
 import FuwariBlogLayout from "@/layouts/FuwariBlogLayout.astro";
-import { getPosts } from "@/lib/posts";
+import { getPosts, getSidebarStats } from "@/lib/posts";
 import config from "@/config";
 
 const posts = await getPosts();
+const { years, tags } = getSidebarStats(posts);
 
-// 提取标签统计
-const tagCounts = new Map<string, number>();
-posts.forEach(post => {
-  post.data.tags.forEach(tag => {
-    tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
-  });
-});
-const tagsWithCount = Array.from(tagCounts, ([tag, count]) => ({
-  tag,
-  count,
-})).sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag, "zh-CN"));
-
-// 按年份分组文章
+// 按年份分组文章，归档页使用参考站的时间轴布局。
 const postsByYear = new Map<string, typeof posts>();
 posts.forEach(post => {
   const year = post.data.pubDate.getFullYear().toString();
@@ -29,23 +18,15 @@ posts.forEach(post => {
 const sortedYears = Array.from(postsByYear.keys()).sort(
   (a, b) => Number(b) - Number(a)
 );
-
-const yearsList = sortedYears.map(year => ({
-  year,
-  count: postsByYear.get(year)?.length || 0,
-}));
 ---
 
 <FuwariBlogLayout
   title={`文章归档 | ${config.site.title}`}
   postsCount={posts.length}
-  years={yearsList}
-  tags={tagsWithCount}
-  showBanner={false}
+  years={years}
+  tags={tags}
 >
-  <!-- 归档时间轴 Bento 卡片容器 -->
   <div class="fuwari-card p-5 sm:p-8 border border-border/80">
-    <!-- 头部小标题与统计 -->
     <div class="flex items-center justify-between pb-4 mb-6 border-b border-border/60">
       <div class="flex items-center gap-2 font-bold text-base sm:text-lg text-foreground">
         <span class="w-1.5 h-4 rounded-full bg-accent"></span>
@@ -56,13 +37,11 @@ const yearsList = sortedYears.map(year => ({
       </span>
     </div>
 
-    <!-- 年份与时间轴文章流 -->
     <div class="space-y-8">
       {sortedYears.map(year => {
         const yearPosts = postsByYear.get(year) || [];
         return (
           <div id={`year-${year}`} class="scroll-mt-16">
-            <!-- 年份行：年份 + 空心指示环 + 篇数 -->
             <div class="flex items-center gap-3 sm:gap-4 py-2">
               <div class="w-14 sm:w-16 text-right font-black text-xl sm:text-2xl text-foreground/90 font-mono shrink-0">
                 {year}
@@ -75,7 +54,6 @@ const yearsList = sortedYears.map(year => ({
               </div>
             </div>
 
-            <!-- 该年份下的月份-文章列表 -->
             <div class="ml-14 sm:ml-16 pl-2.5 sm:pl-2 relative border-l border-border/50 space-y-1 my-1">
               {yearPosts.map(post => {
                 const month = String(post.data.pubDate.getMonth() + 1).padStart(2, "0");
@@ -88,22 +66,16 @@ const yearsList = sortedYears.map(year => ({
                     href={postUrl}
                     class="group flex items-center gap-3 py-2 px-2.5 rounded-xl hover:bg-accent/10 transition-all"
                   >
-                    <!-- 日期点标记 -->
                     <span class="font-mono text-xs text-muted-foreground shrink-0 w-11">
                       {dateStr}
                     </span>
-
-                    <!-- 时间轴连接小实心点 -->
                     <span class="w-1.5 h-1.5 rounded-full bg-border group-hover:bg-accent group-hover:scale-125 transition-all shrink-0"></span>
-
-                    <!-- 文章标题与 Issue 标识 -->
                     <span class="text-xs sm:text-sm text-foreground/85 group-hover:text-accent font-medium transition-colors flex-1 truncate">
                       {post.data.title}
                     </span>
-
-                    {post.data.issueNumber && (
-                      <span class="text-[11px] font-mono text-muted-foreground group-hover:text-accent/80 shrink-0">
-                        #{post.data.issueNumber}
+                    {post.data.tags.length > 0 && (
+                      <span class="hidden md:inline-block text-[11px] text-muted-foreground/60 font-mono shrink-0">
+                        #{post.data.tags[0]}
                       </span>
                     )}
                   </a>

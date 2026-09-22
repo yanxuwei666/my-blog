@@ -7,6 +7,14 @@ import type { ResolvedAstroPaperConfig } from "./types/config";
 
 const DEFAULT_OG_IMAGE = "favicon.svg";
 
+const DEFAULT_PAGE_WIDTH = "100%";
+
+const DEFAULT_NAV = [
+  { title: "首页", href: "/" },
+  { title: "归档", href: "/archives" },
+  { title: "标签", href: "/tags" },
+];
+
 const commentsConfig = userConfig.comments?.enabled
   ? {
       ...userConfig.comments,
@@ -27,6 +35,8 @@ const config: ResolvedAstroPaperConfig = {
     ...userConfig.site,
     authorBio: userConfig.site.authorBio,
     authorAvatar: userConfig.site.authorAvatar,
+    nav: userConfig.site.nav ?? DEFAULT_NAV,
+    pageWidth: userConfig.site.pageWidth ?? DEFAULT_PAGE_WIDTH,
     ogImage: userConfig.site.ogImage ?? DEFAULT_OG_IMAGE,
     lang: userConfig.site.lang ?? "zh-CN",
     timezone: userConfig.site.timezone ?? "Asia/Shanghai",

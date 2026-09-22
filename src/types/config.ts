@@ -1,3 +1,16 @@
+interface NavItem {
+  /** Menu label shown in the top navigation bar */
+  title: string;
+  /**
+   * Target of the menu item. Leave it empty to keep the label as a placeholder
+   * that does not navigate — use that for pages that have no content yet.
+   * A leading "/" is resolved against the deploy base, so "/archives" becomes
+   * "/blog/archives" when the blog is served under a "/blog" base. Any other
+   * value (e.g. "https://example.com/about/") is used as-is.
+   */
+  href: string;
+}
+
 interface SiteConfig {
   /** Deployed URL of the site, e.g. "https://example.com" */
   url: string;
@@ -21,6 +34,14 @@ interface SiteConfig {
   timezone?: string;
   /** Text direction */
   dir?: "ltr" | "rtl" | "auto";
+  /** Top navigation entries. Defaults to 首页 / 归档 / 标签. */
+  nav?: NavItem[];
+  /**
+   * Max width of the page shell (header, content and footer share it).
+   * Defaults to "100%", which fills the browser window.
+   * Use a fixed value such as "90rem" to keep the site centred on very wide screens.
+   */
+  pageWidth?: string;
   /** Google Search Console verification meta tag value */
   googleVerification?: string;
 }
@@ -149,6 +170,8 @@ type ResolvedSiteConfig = Required<
     | "timezone"
     | "dir"
     | "ogImage"
+    | "nav"
+    | "pageWidth"
   >
 > &
   Pick<

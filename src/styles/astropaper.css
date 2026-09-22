@@ -23,42 +23,26 @@
 }
 
 /* ============================================================
-   阅读区宽度（中文技术长文）
-   --app-content-width  正文列宽，不含左右留白
-   --app-gutter         左右留白
-   页头 / 页脚 / 正文共用同一组变量，保证竖向对齐。
+   页面主容器宽度
+   --page-width   主容器最大宽度，页头 / 正文 / 页脚共用，保证竖向对齐。
+                  由 astro-paper.config.ts 中的 site.pageWidth 控制。
+   --page-gutter  左右留白
    ============================================================ */
 :root {
-  --app-content-width: 56rem; /* 896px */
-  --app-gutter: 1rem; /* 16px：移动端 */
+  --page-width: 100%;
+  --page-gutter: 1rem; /* 16px：移动端 */
 }
 
 @media (min-width: 640px) {
   :root {
-    --app-gutter: 1.5rem; /* 24px：平板及以上 */
+    --page-gutter: 1.5rem; /* 24px：平板及以上 */
   }
 }
 
-@media (min-width: 1280px) {
-  :root {
-    --app-content-width: 61rem; /* 976px：大屏加宽 */
-  }
-}
-
-@utility max-w-app {
-  max-width: var(--app-content-width);
-}
-
-@utility app-layout {
+@utility page-shell {
   @apply mx-auto w-full;
-  max-width: calc(var(--app-content-width) + 2 * var(--app-gutter));
-  padding-inline: var(--app-gutter);
-}
-
-@utility chrome-layout {
-  @apply mx-auto w-full;
-  max-width: calc(var(--app-content-width) + 2 * var(--app-gutter));
-  padding-inline: var(--app-gutter);
+  max-width: var(--page-width);
+  padding-inline: var(--page-gutter);
 }
 
 @utility active-nav {
@@ -68,4 +52,3 @@
 :target {
   scroll-margin-block: 1rem;
 }
-

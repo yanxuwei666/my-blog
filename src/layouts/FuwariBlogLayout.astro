@@ -2,7 +2,6 @@
 import AstroPaperLayout from "@/layouts/AstroPaperLayout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
-import FuwariBanner from "@/components/fuwari/FuwariBanner.astro";
 import FuwariProfile from "@/components/fuwari/FuwariProfile.astro";
 import FuwariArchiveWidget from "@/components/fuwari/FuwariArchiveWidget.astro";
 import FuwariTagsWidget from "@/components/fuwari/FuwariTagsWidget.astro";
@@ -11,25 +10,17 @@ import config from "@/config";
 interface Props {
   title?: string;
   description?: string;
-  bannerTitle?: string;
-  bannerSubtitle?: string;
-  bannerImage?: string;
   postsCount?: number;
   years?: { year: string; count: number }[];
   tags?: { tag: string; count?: number }[];
-  showBanner?: boolean;
 }
 
 const {
   title = `${config.site.title} - 博客`,
   description = config.site.description,
-  bannerTitle,
-  bannerSubtitle,
-  bannerImage,
   postsCount = 0,
   years = [],
   tags = [],
-  showBanner = false,
 } = Astro.props;
 ---
 
@@ -37,17 +28,8 @@ const {
   <!-- 顶部全局导航栏 -->
   <Header />
 
-  <!-- 顶部沉浸式大横幅 Hero (负 margin 衔接 Header) -->
-  {showBanner && (
-    <FuwariBanner
-      title={bannerTitle || config.site.title}
-      subtitle={bannerSubtitle || config.site.description}
-      bannerImage={bannerImage}
-    />
-  )}
-
-  <!-- 严格按照 Fuwari 标准页面宽度 75rem (1200px) 约束，左侧固定 17.5rem，紧凑精致 -->
-  <div class="max-w-[75rem] mx-auto px-4 sm:px-6 w-full pb-16 pt-4">
+  <!-- 主容器宽度由 site.pageWidth 控制；左侧固定 17.5rem -->
+  <div class="page-shell pb-16 pt-4">
     <div class="grid grid-cols-1 lg:grid-cols-[17.5rem_1fr] gap-4 items-start">
       <!-- 左侧边栏 (Profile + 归档挂件 + 标签挂件) -->
       <aside class="space-y-4 lg:sticky lg:top-4 order-2 lg:order-1 w-full">

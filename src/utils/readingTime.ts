@@ -13,7 +13,7 @@ export function getReadingTime(rawContent: string = ""): ReadingStats {
   const clean = rawContent
     .replace(/^---[\s\S]*?---/, "") // Frontmatter
     .replace(/```[\s\S]*?```/g, "") // 代码块
-    .replace(/<[^>]+>/g, "") // HTML 标签
+    .replace(/<\/?[a-zA-Z!][^>]*>/g, "") // HTML 标签（只匹配合法标签，避免吃掉「< 2G」这类写法）
     .replace(/[#*`~>\[\]\(\)\-_=+]/g, " ") // Markdown 标记
     .trim();
 

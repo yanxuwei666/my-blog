@@ -4,22 +4,33 @@ import FuwariPostList from "@/components/fuwari/FuwariPostList.astro";
 import { buildPostPager, getPosts, getSidebarStats } from "@/lib/posts";
 import config from "@/config";
 
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  const lastPage = Math.ceil(posts.length / config.posts.perIndex);
+
+  // 第 1 页由 src/pages/index.astro 渲染，这里只生成第 2 页及之后
+  return Array.from({ length: Math.max(0, lastPage - 1) }, (_, i) => ({
+    params: { page: String(i + 2) },
+  }));
+}
+
+const currentPage = Number(Astro.params.page);
 const posts = await getPosts();
 const { years, tags } = getSidebarStats(posts);
 
 const page = buildPostPager(posts, {
   pageSize: config.posts.perIndex,
-  currentPage: 1,
+  currentPage,
   locale: Astro.currentLocale ?? config.site.lang,
 });
 ---
 
 <FuwariBlogLayout
-  title={config.site.title}
+  title={`${config.site.title} · 第 ${currentPage} 页`}
   description={config.site.description}
   postsCount={posts.length}
   years={years}
   tags={tags}
 >
-  <FuwariPostList page={page} archiveCta />
+  <FuwariPostList {page} />
 </FuwariBlogLayout>

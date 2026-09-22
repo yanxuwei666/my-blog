@@ -1,0 +1,144 @@
+---
+import FuwariBentoCard from "@/components/fuwari/FuwariBentoCard.astro";
+import Pagination from "@/components/Pagination.astro";
+import type { PostPager } from "@/lib/posts";
+
+interface Props {
+  page: PostPager;
+  withYearAnchors?: boolean;
+  archiveCta?: boolean;
+}
+
+const { page, withYearAnchors = false, archiveCta = false } = Astro.props;
+const isLastPage = !page.url.next;
+---
+
+<div id="post-list" class="space-y-4">
+  {page.data.map((post, index) => {
+    const year = post.data.pubDate.getFullYear().toString();
+    const previousYear = index > 0
+      ? page.data[index - 1].data.pubDate.getFullYear().toString()
+      : undefined;
+    const isYearStart = withYearAnchors && year !== previousYear;
+
+    return isYearStart ? (
+      <div id={`year-${year}`} class="scroll-mt-24">
+        <FuwariBentoCard post={post} />
+      </div>
+    ) : (
+      <FuwariBentoCard post={post} />
+    );
+  })}
+</div>
+
+<!--
+  触底自动加载下一页；禁用 JS 时这里就是一套普通的上一页/下一页链接。
+  data-* 供脚本判断还剩几页，翻页后整块替换成下一页的 markup。
+-->
+<div
+  id="post-more"
+  data-current={page.currentPage}
+  data-last={page.lastPage}
+  data-total={page.total}
+  data-next={page.url.next ?? ""}
+  data-archive-cta={archiveCta ? "true" : "false"}
+>
+  <Pagination page={page} />
+</div>
+
+{
+  isLastPage && (
+    <p class="py-4 text-center text-xs text-muted-foreground font-mono">
+      已经到底了 · 共 {page.total} 篇文章
+    </p>
+  )
+}
+
+{archiveCta && (
+  <div id="archive-cta" class:list={["fuwari-card mt-4 p-8 sm:p-10 text-center", { hidden: !isLastPage }]}>
+    <p class="text-sm sm:text-base font-semibold text-muted-foreground">
+      想要按时间倒叙查阅所有历年历史文章？
+    </p>
+    <a
+      href="/archives"
+      class="mt-4 inline-flex items-center gap-2 rounded-xl bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
+    >
+      前往完整归档时间轴
+      <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6" />
+      </svg>
+    </a>
+  </div>
+)}
+
+<script is:inline data-astro-rerun>
+  function initPostListAutoLoad() {
+    const wrap = document.getElementById("post-more");
+    const list = document.getElementById("post-list");
+    if (!wrap || !list || !wrap.dataset.next) return;
+
+    let next = wrap.dataset.next;
+    let current = Number(wrap.dataset.current ?? 1);
+    const last = Number(wrap.dataset.last ?? 1);
+    const total = Number(wrap.dataset.total ?? 0);
+    let loading = false;
+
+    const tip = document.createElement("p");
+    tip.className =
+      "py-4 text-center text-xs text-muted-foreground font-mono";
+    tip.setAttribute("aria-live", "polite");
+    wrap.before(tip);
+
+    async function loadNext() {
+      loading = true;
+      tip.textContent = `正在加载第 ${current + 1} / ${last} 页…`;
+
+      try {
+        const res = await fetch(next, { credentials: "same-origin" });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+        const doc = new DOMParser().parseFromString(
+          await res.text(),
+          "text/html"
+        );
+        doc
+          .querySelectorAll("#post-list > *")
+          .forEach(node => list.appendChild(node));
+
+        current += 1;
+
+        const source = doc.getElementById("post-more");
+        next = source?.dataset.next ?? "";
+        if (source) wrap.innerHTML = source.innerHTML;
+
+        if (next) {
+          tip.textContent = `已加载 ${current} / ${last} 页，继续下拉`;
+        } else {
+          observer.disconnect();
+          wrap.remove();
+          tip.textContent = `已经到底了 · 共 ${total} 篇文章`;
+          document.getElementById("archive-cta")?.classList.remove("hidden");
+        }
+      } catch (error) {
+        observer.disconnect();
+        tip.textContent = "自动加载失败，可以用下面的分页按钮继续";
+      }
+
+      loading = false;
+
+      // 屏幕很高时一次加载完还够不到触底点，主动再判断一次
+      if (next && wrap.getBoundingClientRect().top < window.innerHeight + 400) {
+        loadNext();
+      }
+    }
+
+    const observer = new IntersectionObserver(
+      entries => {
+        if (!loading && entries.some(entry => entry.isIntersecting)) loadNext();
+      },
+      { rootMargin: "400px 0px" }
+    );
+    observer.observe(wrap);
+  }
+  initPostListAutoLoad();
+</script>
