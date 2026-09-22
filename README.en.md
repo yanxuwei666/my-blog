@@ -1,6 +1,6 @@
 # Issue Blog
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/raclen/issue-blog)
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/yanxuwei666/my-blog)
 
 Chinese README: [README.md](./README.md)
 
@@ -125,7 +125,7 @@ Other issue labels become post tags. The `blog` label is only used as the publis
 
 If this project helps you, please star the repo. Your support helps me keep improving the theme, sync flow, and deployment experience.
 
-[![Star History Chart](https://api.star-history.com/svg?repos=raclen/issue-blog&type=Date)](https://star-history.com/#raclen/issue-blog&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=yanxuwei666/my-blog&type=Date)](https://star-history.com/#yanxuwei666/my-blog&Date)
 
 ## Local Development
 

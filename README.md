@@ -1,6 +1,6 @@
 # Issue Blog
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/raclen/issue-blog)
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/yanxuwei666/my-blog)
 
 English README: [README.en.md](./README.en.md)
 
@@ -125,7 +125,7 @@ Issue 的其他标签会变成文章标签，`blog` 标签只用于筛选文章�
 
 如果这个模板对你有帮助，欢迎点个 Star。你的支持会直接推动我继续补强主题、同步能力和部署体验。
 
-[![Star History Chart](https://api.star-history.com/svg?repos=raclen/issue-blog&type=Date)](https://star-history.com/#raclen/issue-blog&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=yanxuwei666/my-blog&type=Date)](https://star-history.com/#yanxuwei666/my-blog&Date)
 
 ## 本地开发
 

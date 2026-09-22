@@ -16,7 +16,7 @@ const {
 
 const { site, socials } = config;
 const authorName = site.author || "Blogger";
-const authorBio = site.authorBio || site.description || "用 GitHub Issues 记录思考与技术沉淀";
+const authorBio = site.authorBio || site.description || "记录代码实践，分享成长路上的每一步";
 
 // 动态解析头像：优先使用 authorAvatar，其次从 GitHub profile 解析，最后回退到 favicon.svg
 const githubSocial = socials.find(s => s.name.toLowerCase() === "github");

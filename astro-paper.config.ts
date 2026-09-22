@@ -3,24 +3,24 @@ import { defineAstroPaperConfig } from "./src/types/config";
 export default defineAstroPaperConfig({
   site: {
     url: process.env.SITE_URL || "https://example.com",
-    title: "Issue Blog",
+    title: "个人博客",
     description: "A Cloudflare-deployable blog powered by GitHub Issues.",
-    author: "raclen",
-    authorBio: "用 GitHub Issues 记录思考与技术沉淀",
-    profile: "https://github.com/raclen",
+    author: "奋斗的小猴子",
+    authorBio: "记录代码实践，分享成长路上的每一步",
+    authorAvatar: "/images/shiba-avatar.png",
+    profile: "https://github.com/yanxuwei666",
     lang: "zh-CN",
     timezone: "Asia/Shanghai",
     dir: "ltr",
-    // href 留空的标签只占位、不跳转，等内容补上再填地址
     nav: [
-      { title: "作品", href: "" },
+      { title: "作品", href: "/works" },
       { title: "博客", href: "/" },
       { title: "归档", href: "/archives" },
-      { title: "友链", href: "" },
-      { title: "关于", href: "" },
+      { title: "友链", href: "/links" },
+      { title: "关于", href: "/about" },
     ],
-    // 页面主容器最大宽度，页头/正文/页脚共用。归档与博客列表保持居中窄版布局。
-    pageWidth: "75rem",
+    // 页面主容器宽度撑满视口，仅保留两侧留白（--page-gutter）。
+    pageWidth: "100%",
   },
   posts: {
     perPage: 8,
@@ -38,7 +38,7 @@ export default defineAstroPaperConfig({
     search: "pagefind",
   },
   socials: [
-    { name: "github", url: "https://github.com/raclen/issue-blog" },
+    { name: "github", url: "https://github.com/yanxuwei666/my-blog" },
   ],
   shareLinks: [],
   comments: {

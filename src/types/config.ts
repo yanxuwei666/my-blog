@@ -130,7 +130,7 @@ type CommentsConfig =
   | {
       enabled: true;
       provider: "giscus";
-      /** GitHub repository in owner/name form, e.g. "raclen/zone" */
+      /** GitHub repository in owner/name form, e.g. "owner/repository" */
       repo: string;
       /** Repository GraphQL node id from giscus.app */
       repoId: string;
