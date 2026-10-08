@@ -1,0 +1,184 @@
+{
+  "version": 1,
+  "project": "my-blog",
+  "documents": {
+    "20260828211046-v1baw4b": {
+      "path": "src/content/blog/linux-8adb418f.md",
+      "slug": "linux-8adb418f",
+      "pubDate": "2026-10-08",
+      "updatedDate": "",
+      "sourceHash": "sha256:2f7173233996df0f71c75ddd58f4aed84cdd323f92318edc863c859c858aa7c2",
+      "contentHash": "sha256:4a7335b40885264a772273ab11bd75558bac31d227eb4527681c5387749dafa7",
+      "syncDateVersion": 1,
+      "lastSyncAt": "2026-10-08T07:57:50.861Z",
+      "assets": [
+        {
+          "targetPath": "public/images/blog/linux-8adb418f/image-20260829161256-jmtsqa8.png",
+          "hash": "sha256:bab48b20d9327448e74e05ff360c964dbc61abba37865d5ca5073dab002754d9",
+          "sourcePath": "/assets/image-20260829161256-jmtsqa8.png"
+        }
+      ]
+    },
+    "20260828194409-jrmezu9": {
+      "path": "src/content/blog/linux-05f72913.md",
+      "slug": "linux-05f72913",
+      "pubDate": "2026-10-08",
+      "updatedDate": "",
+      "sourceHash": "sha256:3e7eb361ff48c1b67cb778bf92f9f49672b0eaa6bdb3f2168adef2f20bbdbc40",
+      "contentHash": "sha256:27788187de4f0640af9dcd54fd25aba2c7c0cadbe308d0c833ec258b1fdd02bc",
+      "syncDateVersion": 1,
+      "lastSyncAt": "2026-10-08T07:57:50.861Z",
+      "assets": [
+        {
+          "targetPath": "public/images/blog/linux-05f72913/image-20260828204543-c4q9urs.png",
+          "hash": "sha256:45105c67a8817c42f1550192aff842a2517c993c937b3fbdadebc1758b53d12a",
+          "sourcePath": "/assets/image-20260828204543-c4q9urs.png"
+        },
+        {
+          "targetPath": "public/images/blog/linux-05f72913/image-20260828204825-1ytvs3p.png",
+          "hash": "sha256:c39664b038a39b6619aaf71c740eedf0413dc58807ee96118f11e258ab296087",
+          "sourcePath": "/assets/image-20260828204825-1ytvs3p.png"
+        }
+      ]
+    },
+    "20260826094051-8ophd7i": {
+      "path": "src/content/blog/deepseek-harness-deb-05e2f11a.md",
+      "slug": "deepseek-harness-deb-05e2f11a",
+      "pubDate": "2026-10-08",
+      "updatedDate": "2026-10-08",
+      "sourceHash": "sha256:11225db9988ab8017c491339665dcd689e43716add2f1453ad3c2326c2732557",
+      "contentHash": "sha256:e5e82cec0f3e0f9031ed26fb6d307f769ecc68c84c9ec0b845e41142f468a932",
+      "syncDateVersion": 1,
+      "lastSyncAt": "2026-10-08T08:11:42.701Z",
+      "assets": []
+    },
+    "20261008093807-5p5eywf": {
+      "path": "src/content/blog/cloudflare-c4e22bf8.md",
+      "slug": "cloudflare-c4e22bf8",
+      "pubDate": "2026-10-08",
+      "updatedDate": "",
+      "sourceHash": "sha256:8bf11a43d6ecc0f3a9449fb1a984b8a680ee40a7d1021f4681b6038cc23abfd1",
+      "contentHash": "sha256:4c7849af243bba5540213364218462a7804d7e49cc1969b528bf8f6266da063f",
+      "syncDateVersion": 1,
+      "lastSyncAt": "2026-10-08T08:11:42.716Z",
+      "assets": [
+        {
+          "targetPath": "public/images/blog/cloudflare-c4e22bf8/image-20261008112832-k5jdumg.png",
+          "hash": "sha256:7677fd3a3ccfd15b393d1c4f1c72b691ceee77db0d58783fae0766027a7e50e8",
+          "sourcePath": "/assets/image-20261008112832-k5jdumg.png"
+        },
+        {
+          "targetPath": "public/images/blog/cloudflare-c4e22bf8/image-20261008142444-fgt4o0t.png",
+          "hash": "sha256:1a73fa36ca78d5e0cee3c126e693aec26f12a7528c0ad4c062debaed59ef78f6",
+          "sourcePath": "/assets/image-20261008142444-fgt4o0t.png"
+        },
+        {
+          "targetPath": "public/images/blog/cloudflare-c4e22bf8/image-20261008144138-eqz5zq9.png",
+          "hash": "sha256:33e0834779e6e17adaf18dc9342456acc72834013f608275d53dd998acb3c9aa",
+          "sourcePath": "/assets/image-20261008144138-eqz5zq9.png"
+        },
+        {
+          "targetPath": "public/images/blog/cloudflare-c4e22bf8/image-20261008144311-1s2485g.png",
+          "hash": "sha256:7dddffab9ad90b3cbb91a6dfccb08ac6846e2f8e37cb07359c462a9745b50f9d",
+          "sourcePath": "/assets/image-20261008144311-1s2485g.png"
+        },
+        {
+          "targetPath": "public/images/blog/cloudflare-c4e22bf8/image-20261008144400-5xphdtj.png",
+          "hash": "sha256:4f676e4693f7588fa99f4d5a6b0ddf78eebce3db11423db3db471cde6443f947",
+          "sourcePath": "/assets/image-20261008144400-5xphdtj.png"
+        },
+        {
+          "targetPath": "public/images/blog/cloudflare-c4e22bf8/image-20261008144518-l2t5p4a.png",
+          "hash": "sha256:2d3618d01a1fc90992dd9a9858844b49734b508a100baa6e3caa71a89f2c2beb",
+          "sourcePath": "/assets/image-20261008144518-l2t5p4a.png"
+        },
+        {
+          "targetPath": "public/images/blog/cloudflare-c4e22bf8/image-20261008144715-63vee8l.png",
+          "hash": "sha256:480bd6c9d6da6d070071bebc3a134d8e3644c2efba4e56597f956d515bdd915a",
+          "sourcePath": "/assets/image-20261008144715-63vee8l.png"
+        },
+        {
+          "targetPath": "public/images/blog/cloudflare-c4e22bf8/image-20261008144859-jqccvy1.png",
+          "hash": "sha256:b51d572b08eb2cd169acc27ddac90d8b8079b9d96482beb372d32b829621a6c8",
+          "sourcePath": "/assets/image-20261008144859-jqccvy1.png"
+        },
+        {
+          "targetPath": "public/images/blog/cloudflare-c4e22bf8/image-20261008145751-i54f77u.png",
+          "hash": "sha256:ad67e5445769f073f6dd01e00c94f1d74acaf3462f5c31e93bd4167464f52bbd",
+          "sourcePath": "/assets/image-20261008145751-i54f77u.png"
+        },
+        {
+          "targetPath": "public/images/blog/cloudflare-c4e22bf8/image-20261008151601-avweboy.png",
+          "hash": "sha256:019df356421bbffa42dfdebd0dc90169969250e0296f869bd059474c885eeef1",
+          "sourcePath": "/assets/image-20261008151601-avweboy.png"
+        },
+        {
+          "targetPath": "public/images/blog/cloudflare-c4e22bf8/image-20261008151908-u7uj4n0.png",
+          "hash": "sha256:67af073e3c50453181a51d319407c0dec0f2e95f928cc8c14eccd0291e1d2d0f",
+          "sourcePath": "/assets/image-20261008151908-u7uj4n0.png"
+        },
+        {
+          "targetPath": "public/images/blog/cloudflare-c4e22bf8/image-20261008151934-wcqvmpi.png",
+          "hash": "sha256:3714a9e2f359143751c4e88bbf2972173d474adb63189259ef23f9a0eb61289d",
+          "sourcePath": "/assets/image-20261008151934-wcqvmpi.png"
+        },
+        {
+          "targetPath": "public/images/blog/cloudflare-c4e22bf8/image-20261008152022-o9364uu.png",
+          "hash": "sha256:8a219913ca70221c1bb84756f5e3f7e39a523f1e609cd09a52f31cfcda4b3410",
+          "sourcePath": "/assets/image-20261008152022-o9364uu.png"
+        },
+        {
+          "targetPath": "public/images/blog/cloudflare-c4e22bf8/image-20261008152343-w2btqdd.png",
+          "hash": "sha256:017a27c4afb5c0867375872c451e27c2289d7bfd493103d774b07250b2c917a2",
+          "sourcePath": "/assets/image-20261008152343-w2btqdd.png"
+        },
+        {
+          "targetPath": "public/images/blog/cloudflare-c4e22bf8/image-20261008150721-tfdkv4y.png",
+          "hash": "sha256:1dc1b4816bc449fa4891f796063e4a031bb729a220b88769d45c41a922f78000",
+          "sourcePath": "/assets/image-20261008150721-tfdkv4y.png"
+        },
+        {
+          "targetPath": "public/images/blog/cloudflare-c4e22bf8/image-20261008150752-sexw5bs.png",
+          "hash": "sha256:fdebb7ead3e10dd50cadd79ec685d3ca0b6c96d7673274d2d0d2565e91e7ea50",
+          "sourcePath": "/assets/image-20261008150752-sexw5bs.png"
+        },
+        {
+          "targetPath": "public/images/blog/cloudflare-c4e22bf8/image-20261008152641-s5d5175.png",
+          "hash": "sha256:b918b3f3d73a60ad8dcf8c5d636db0d7064fcb762c58eed8373aa1eb75fb0ee1",
+          "sourcePath": "/assets/image-20261008152641-s5d5175.png"
+        },
+        {
+          "targetPath": "public/images/blog/cloudflare-c4e22bf8/image-20261008152750-l3gbafu.png",
+          "hash": "sha256:ffa111ce03be707f41f07c8e0b4ac20d021a4108a2b7c5054063dee7bd2fb267",
+          "sourcePath": "/assets/image-20261008152750-l3gbafu.png"
+        },
+        {
+          "targetPath": "public/images/blog/cloudflare-c4e22bf8/image-20261008152832-58wertt.png",
+          "hash": "sha256:0400d1762aaff2922c733df8044308fef1f0e19cee45642ac58e6b75dce9da46",
+          "sourcePath": "/assets/image-20261008152832-58wertt.png"
+        },
+        {
+          "targetPath": "public/images/blog/cloudflare-c4e22bf8/image-20261008152918-9yc4fk1.png",
+          "hash": "sha256:4615878ee1b9cce7f8dfc7649b400fda0a01550375024916200afff2145a74f3",
+          "sourcePath": "/assets/image-20261008152918-9yc4fk1.png"
+        },
+        {
+          "targetPath": "public/images/blog/cloudflare-c4e22bf8/image-20261008153021-repqli9.png",
+          "hash": "sha256:3649050f1f7435892da6bf13c415dddd36c03139d9bb2c4b04940e898d413166",
+          "sourcePath": "/assets/image-20261008153021-repqli9.png"
+        },
+        {
+          "targetPath": "public/images/blog/cloudflare-c4e22bf8/image-20261008155643-ljrus03.png",
+          "hash": "sha256:c6cb524876f4e32d816815c7a0a19a71704c7b8c8a29035f8c82f2bbc2ae2a5e",
+          "sourcePath": "/assets/image-20261008155643-ljrus03.png"
+        },
+        {
+          "targetPath": "public/images/blog/cloudflare-c4e22bf8/image-20261008155805-yx6vrza.png",
+          "hash": "sha256:b34ad80b50a54df4ebc175ee3e294c0ae62e42178f2a1f4689edd0140ca0022c",
+          "sourcePath": "/assets/image-20261008155805-yx6vrza.png"
+        }
+      ]
+    }
+  },
+  "updatedAt": "2026-10-08T08:11:42.716Z"
+}
