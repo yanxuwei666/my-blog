@@ -6,11 +6,11 @@
       "path": "src/content/blog/linux-8adb418f.md",
       "slug": "linux-8adb418f",
       "pubDate": "2026-10-08",
-      "updatedDate": "",
-      "sourceHash": "sha256:2f7173233996df0f71c75ddd58f4aed84cdd323f92318edc863c859c858aa7c2",
-      "contentHash": "sha256:4a7335b40885264a772273ab11bd75558bac31d227eb4527681c5387749dafa7",
+      "updatedDate": "2026-10-09",
+      "sourceHash": "sha256:fba85f3b3f5aabc189f4c18723de881f82904d8c49317baad295d0239304845a",
+      "contentHash": "sha256:731ecde81b33c28425cd359a8d97f7e5608f28a8a1a189c6f381c26b2fe37efe",
       "syncDateVersion": 1,
-      "lastSyncAt": "2026-10-08T07:57:50.861Z",
+      "lastSyncAt": "2026-10-09T07:38:58.673Z",
       "assets": [
         {
           "targetPath": "public/images/blog/linux-8adb418f/image-20260829161256-jmtsqa8.png",
@@ -23,11 +23,11 @@
       "path": "src/content/blog/linux-05f72913.md",
       "slug": "linux-05f72913",
       "pubDate": "2026-10-08",
-      "updatedDate": "",
-      "sourceHash": "sha256:3e7eb361ff48c1b67cb778bf92f9f49672b0eaa6bdb3f2168adef2f20bbdbc40",
-      "contentHash": "sha256:27788187de4f0640af9dcd54fd25aba2c7c0cadbe308d0c833ec258b1fdd02bc",
+      "updatedDate": "2026-10-09",
+      "sourceHash": "sha256:ba50e91c05ab477fab7f343c71a6de32db7d40be38aa0ce37efdf4461cb53a53",
+      "contentHash": "sha256:11a2bd03b517835be27f5565c6a1abfc01dc6d949850c08161dd3a0e9197c0a0",
       "syncDateVersion": 1,
-      "lastSyncAt": "2026-10-08T07:57:50.861Z",
+      "lastSyncAt": "2026-10-09T07:38:58.673Z",
       "assets": [
         {
           "targetPath": "public/images/blog/linux-05f72913/image-20260828204543-c4q9urs.png",
@@ -45,22 +45,22 @@
       "path": "src/content/blog/deepseek-harness-deb-05e2f11a.md",
       "slug": "deepseek-harness-deb-05e2f11a",
       "pubDate": "2026-10-08",
-      "updatedDate": "2026-10-08",
-      "sourceHash": "sha256:11225db9988ab8017c491339665dcd689e43716add2f1453ad3c2326c2732557",
-      "contentHash": "sha256:e5e82cec0f3e0f9031ed26fb6d307f769ecc68c84c9ec0b845e41142f468a932",
+      "updatedDate": "2026-10-09",
+      "sourceHash": "sha256:f014dfd34debbe2e8e8ed6679a898f5528242b5e97efedaba5368c3219f78947",
+      "contentHash": "sha256:41201cedb8b7a02ff6f2448bf54e13c8046ca963d7af578332d292918b8450b1",
       "syncDateVersion": 1,
-      "lastSyncAt": "2026-10-08T08:11:42.701Z",
+      "lastSyncAt": "2026-10-09T07:36:02.975Z",
       "assets": []
     },
     "20261008093807-5p5eywf": {
       "path": "src/content/blog/cloudflare-c4e22bf8.md",
       "slug": "cloudflare-c4e22bf8",
       "pubDate": "2026-10-08",
-      "updatedDate": "",
-      "sourceHash": "sha256:8bf11a43d6ecc0f3a9449fb1a984b8a680ee40a7d1021f4681b6038cc23abfd1",
-      "contentHash": "sha256:4c7849af243bba5540213364218462a7804d7e49cc1969b528bf8f6266da063f",
+      "updatedDate": "2026-10-09",
+      "sourceHash": "sha256:232e8ee36dff2ea4c8faa228d02569310b12c715c04554f059ace4632aecc9d0",
+      "contentHash": "sha256:1eb18a3f9f079eea6fcd3a43306ab117c4c03261f2102c45f7de5828cdfc87bd",
       "syncDateVersion": 1,
-      "lastSyncAt": "2026-10-08T08:11:42.716Z",
+      "lastSyncAt": "2026-10-09T07:36:02.976Z",
       "assets": [
         {
           "targetPath": "public/images/blog/cloudflare-c4e22bf8/image-20261008112832-k5jdumg.png",
@@ -180,5 +180,5 @@
       ]
     }
   },
-  "updatedAt": "2026-10-08T08:11:42.716Z"
+  "updatedAt": "2026-10-09T07:38:58.673Z"
 }

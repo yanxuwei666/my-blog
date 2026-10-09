@@ -2,8 +2,8 @@
 title: "Spring Boot 统一异常处理与参数校验落地实践"
 description: "接口层同时存在 try-catch、自定义 Result 和直接抛 RuntimeException 三种风格时，异常处理的价值才真正体现：把错误码、参数校验、日志和响应格式收敛到一个切面上。"
 pubDate: 2026-09-18
-category: "后端框架"
-tags: ["springboot", "java", "backend", "exception-handling"]
+category: "后端开发"
+tags: ["Java", "Spring Boot", "参数校验", "异常处理"]
 draft: false
 ---
 

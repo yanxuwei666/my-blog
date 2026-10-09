@@ -2,8 +2,8 @@
 title: "从零搭建个人博客并部署到 Cloudflare：完整流程说明"
 description: "用 Astro 搭建静态博客，交给 GitHub 管理内容，再通过 Cloudflare Workers 自动构建和发布。"
 pubDate: 2026-09-22
-category: "工程实践"
-tags: ["astro", "github", "cloudflare", "部署"]
+category: "云平台与云服务"
+tags: ["Astro", "GitHub Actions", "Cloudflare", "静态网站部署"]
 draft: false
 ---
 

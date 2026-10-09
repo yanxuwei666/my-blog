@@ -2,8 +2,8 @@
 title: "用 GitHub Issues 驱动个人博客：从写文章到自动部署"
 description: "这个博客没有后台、没有数据库，文章的唯一来源是打了 blog 标签的 GitHub Issue。同步任务把 Issue 转成 Markdown 提交进仓库，再由 Astro 构建成静态站点部署到 Cloudflare。"
 pubDate: 2026-08-05
-category: "工程实践"
-tags: ["github", "workflow", "blog"]
+category: "研发协作与流程"
+tags: ["GitHub Issues", "GitHub Actions", "CI/CD", "博客发布"]
 draft: false
 ---
 

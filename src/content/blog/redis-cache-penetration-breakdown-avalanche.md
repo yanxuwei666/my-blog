@@ -2,8 +2,8 @@
 title: "Redis 缓存穿透、击穿、雪崩：区别、现象与对应解法"
 description: "三个词经常被混着用，但它们的成因完全不同：穿透是查不存在的数据，击穿是单个热 key 过期，雪崩是一大批 key 同时过期。解法也就此分开。"
 pubDate: 2026-08-26
-category: "中间件"
-tags: ["redis", "cache", "backend", "high-availability"]
+category: "分布式与中间件"
+tags: ["Redis", "缓存穿透", "缓存击穿", "缓存雪崩"]
 draft: false
 ---
 

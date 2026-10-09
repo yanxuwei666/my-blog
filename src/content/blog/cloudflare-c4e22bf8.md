@@ -1,14 +1,15 @@
 ---
-title: "【折腾记】用 Cloudflare 部署博客并绑定个人域名"
+title: "【实践应用】用 Cloudflare 部署博客并绑定个人域名"
 description: "上大学那会儿，就一直想有个自己的博客网站。最开始在 CSDN 上写，后来搬到博客园，再后来又开始折腾 Hexo、Hugo 这些工具配合 GitHub 搭来搭去。结果呢，文档没写出几篇有用的，博客倒是搭了一版又一版，每次都是推到一半就搁下了。"
 pubDate: 2026-10-08
-category: ""
-tags: ["Cloudflare", "个人博客", "网站部署", "域名解析"]
+updatedDate: 2026-10-09
+category: "云平台与云服务"
+tags: ["Cloudflare Workers", "DNS", "静态网站", "自定义域名"]
 draft: false
 source: "siyuan"
 siyuanId: "20261008093807-5p5eywf"
 slug: "cloudflare-c4e22bf8"
-sourceHash: "sha256:8bf11a43d6ecc0f3a9449fb1a984b8a680ee40a7d1021f4681b6038cc23abfd1"
+sourceHash: "sha256:232e8ee36dff2ea4c8faa228d02569310b12c715c04554f059ace4632aecc9d0"
 ---
 ## **前言**
 
