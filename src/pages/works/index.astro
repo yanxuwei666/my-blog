@@ -1,30 +1,106 @@
 ---
-import FuwariBlogLayout from "@/layouts/FuwariBlogLayout.astro";
-import { getPosts, getSidebarStats } from "@/lib/posts";
+import AstroPaperLayout from "@/layouts/AstroPaperLayout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import WorkProject from "@/components/works/WorkProject.astro";
+import { works } from "@/data/works";
 import config from "@/config";
-
-const posts = await getPosts();
-const { years, categories, tags } = getSidebarStats(posts);
 ---
 
-<FuwariBlogLayout
-  title={`作品 | ${config.site.title}`}
-  description="作品集"
-  postsCount={posts.length}
-  years={years}
-  categories={categories}
-  tags={tags}
->
-  <div
-    class="fuwari-card flex min-h-[24rem] flex-col items-center justify-center bg-accent/[0.035] p-8 text-center sm:p-14"
-  >
-    <h1 class="text-xl sm:text-2xl font-bold text-foreground">作品</h1>
-
-    <p class="mt-2 text-sm text-muted-foreground max-w-md leading-relaxed">
-      这个入口先保留，后续会补充项目和实践成果。当前可以先从博客和分类开始浏览。
-    </p>
-    <a href="/" class="mt-5 text-sm font-semibold text-accent transition-colors hover:text-foreground">
-      返回文章列表 →
-    </a>
+<AstroPaperLayout title={`作品 | ${config.site.title}`} description="从日常使用出发，做一些自己也想用的东西。这里展示我的工具与项目。">
+  <div class="works-shell">
+    <Header />
+    <main class="works-main">
+      <header class="works-hero">
+        <div class="works-hero-copy">
+          <p class="works-eyebrow"><span class="works-eyebrow-rule" aria-hidden="true"></span>Works · 作品档案</p>
+          <h1>作品</h1>
+          <p class="works-lede">从日常使用出发，做一些自己也想用的东西。</p>
+        </div>
+        <nav class="works-index" aria-label="作品索引">
+          <p class="works-index-head">
+            <span>索引</span>
+            <span class="works-index-count">{works.length} 件</span>
+          </p>
+          <ul>
+            {works.map((work, index) => (
+              <li>
+                <a href={`#${work.id}`}>
+                  <span class="works-index-no" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+                  {work.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </header>
+      <div class="works-list">
+        {works.map((work, index) => <WorkProject work={work} index={index} eager={index === 0} />)}
+      </div>
+    </main>
+    <Footer class="works-footer" />
   </div>
-</FuwariBlogLayout>
+</AstroPaperLayout>
+
+<style>
+  .works-shell { width: min(100%, 1480px); margin-inline: auto; --works-gutter: clamp(20px, 3.2vw, 52px); }
+  .works-main { padding-inline: var(--works-gutter); padding-bottom: 40px; }
+  .works-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 340px);
+    gap: clamp(32px, 4vw, 72px);
+    align-items: end;
+    padding: clamp(28px, 3.4vw, 52px) 2px clamp(24px, 2.6vw, 36px);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: clamp(24px, 2.6vw, 36px);
+  }
+  .works-eyebrow {
+    display: flex; align-items: center; gap: 10px;
+    font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
+    font-size: 12px; font-weight: 600; letter-spacing: .18em;
+    color: var(--accent); text-transform: uppercase;
+  }
+  .works-eyebrow-rule { width: 22px; height: 1px; background: currentColor; opacity: .6; }
+  .works-hero h1 {
+    margin-top: 14px;
+    font-size: clamp(44px, 4.8vw, 68px); font-weight: 760;
+    letter-spacing: -.05em; line-height: 1.08;
+  }
+  .works-lede { margin-top: 14px; max-width: 40em; font-size: 16px; line-height: 1.85; color: var(--muted-foreground); }
+  .works-index { border-left: 1px solid var(--border); padding-left: clamp(20px, 2vw, 28px); align-self: stretch; display: flex; flex-direction: column; justify-content: flex-end; }
+  .works-index-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
+    font-size: 12px; letter-spacing: .14em; color: var(--muted-foreground);
+  }
+  .works-index-count { color: var(--accent); }
+  .works-index ul { margin-top: 10px; display: flex; flex-direction: column; gap: 2px; }
+  .works-index a {
+    display: flex; align-items: baseline; gap: 12px;
+    padding: 8px 10px; margin-inline: -10px; border-radius: 8px;
+    font-size: 14.5px; font-weight: 650; color: var(--foreground);
+    transition: background .16s ease, color .16s ease;
+  }
+  .works-index-no {
+    font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
+    font-size: 12px; color: var(--muted-foreground); transition: color .16s ease;
+  }
+  .works-index a:hover { background: var(--muted); color: var(--accent); }
+  .works-index a:hover .works-index-no { color: var(--accent); }
+  .works-list { display: grid; gap: clamp(28px, 3vw, 44px); }
+  .works-shell :global(.works-footer > div) { border: 0; font-size: 13px; color: var(--muted-foreground); padding-top: 0; }
+  @media (max-width: 920px) {
+    .works-hero { grid-template-columns: 1fr; align-items: start; gap: 26px; padding-top: 24px; }
+    .works-index { border-left: 0; border-top: 1px solid var(--border); padding-left: 0; padding-top: 16px; }
+    .works-index ul { flex-direction: row; flex-wrap: wrap; gap: 8px; }
+    .works-index a {
+      margin: 0; padding: 7px 14px; border: 1px solid var(--border); border-radius: 999px; background: var(--card);
+      font-size: 13.5px;
+    }
+    .works-index a:hover { border-color: color-mix(in srgb, var(--accent) 40%, var(--border)); }
+  }
+  @media (max-width: 640px) {
+    .works-shell { --works-gutter: 16px; }
+    .works-main { padding-bottom: 28px; }
+  }
+</style>

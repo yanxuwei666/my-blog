@@ -1,0 +1,282 @@
+---
+import type { Work } from "@/data/works";
+import { getAssetPath } from "@/utils/withBase";
+interface Props { work: Work; index?: number; eager?: boolean }
+const { work, index = 0, eager = false } = Astro.props;
+const number = String(index + 1).padStart(2, "0");
+---
+
+<article class="work-file" id={work.id} aria-labelledby={`${work.id}-name`}>
+  <header class="work-bar">
+    <span class="work-number" aria-hidden="true">{number}</span>
+    <div class="work-identity">
+      {work.icon && <img class="work-icon" src={getAssetPath(work.icon)} width="40" height="40" alt="" />}
+      <h2 id={`${work.id}-name`}>{work.name}</h2>
+    </div>
+    <p class="work-category">{work.category}</p>
+  </header>
+
+  <div class="work-grid">
+    <div class="work-info">
+      <p class="work-headline">{work.headline}</p>
+      <p class="work-description">{work.description}</p>
+      <figure class="work-note">
+        <blockquote>{work.note.title}</blockquote>
+        <figcaption>{work.note.description}</figcaption>
+      </figure>
+      <dl class="work-facts">
+        {work.facts.map(fact => <div><dt>{fact.label}</dt><dd>{fact.value}</dd></div>)}
+      </dl>
+      <div class="work-actions">
+        <div class="work-links">
+          {work.links.map((link, linkIndex) => (
+            <a class:list={["work-link", { "work-link-primary": linkIndex === 0 }]} href={link.href} target="_blank" rel="noopener noreferrer">
+              {link.icon === "download" && <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5" /></svg>}
+              {link.label}
+              {link.icon === "external" && <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 18 6M6 6h12v12" /></svg>}
+            </a>
+          ))}
+        </div>
+        {work.compatibility && <p class="work-compatibility">{work.compatibility}</p>}
+      </div>
+    </div>
+
+    <work-gallery class="gallery" aria-label={`${work.name} 界面展示`}>
+      <div class="gallery-topline">
+        <p class="gallery-kicker">界面预览</p>
+        <a class="expand-link" href={getAssetPath(work.screenshots[0].src)} data-open-gallery>
+          查看大图
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-7 7M10 20H4v-6M4 20l7-7" /></svg>
+        </a>
+      </div>
+      <div class="gallery-stage">
+        {work.screenshots.map((screen, screenIndex) => (
+          <div
+            class="gallery-panel"
+            id={`${work.id}-screen-${screenIndex}`}
+            data-gallery-panel
+            hidden={screenIndex !== 0}
+          >
+            <a class="gallery-image-link" href={getAssetPath(screen.src)} aria-label={`查看大图：${screen.caption}`} data-open-screen>
+              <img src={getAssetPath(screen.src)} width={screen.width} height={screen.height} alt={screen.alt} loading={screenIndex === 0 && eager ? "eager" : "lazy"} />
+            </a>
+          </div>
+        ))}
+      </div>
+      <div class="gallery-bottom">
+        <div class="gallery-tabs" aria-label="选择展示界面">
+          {work.screenshots.map((screen, screenIndex) => (
+            <a href={getAssetPath(screen.src)} id={`${work.id}-tab-${screenIndex}`} class:list={["gallery-tab", { "is-active": screenIndex === 0 }]} data-gallery-tab data-description={screen.description}>{screen.caption}</a>
+          ))}
+        </div>
+        <p class="gallery-caption" aria-live="polite">{work.screenshots[0].description}</p>
+      </div>
+      <dialog class="image-dialog" aria-label={`${work.name} 界面大图`}>
+        <div class="dialog-toolbar">
+          <p class="dialog-title">{work.screenshots[0].caption}</p>
+          <div class="dialog-controls">
+            <button type="button" data-dialog-prev aria-label="上一张截图"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m14 6-6 6 6 6" /></svg></button>
+            <button type="button" data-dialog-next aria-label="下一张截图"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m10 6 6 6-6 6" /></svg></button>
+            <button type="button" data-dialog-close aria-label="关闭大图" autofocus><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m6 6 12 12M6 18 18 6" /></svg></button>
+          </div>
+        </div>
+        <div class="dialog-image-wrap"><img class="dialog-image" src={getAssetPath(work.screenshots[0].src)} alt={work.screenshots[0].alt} /></div>
+      </dialog>
+    </work-gallery>
+  </div>
+</article>
+
+<script>
+  import "@/scripts/works-gallery";
+</script>
+
+<style>
+  .work-file {
+    --stage-bg: color-mix(in srgb, var(--accent) 7%, var(--card));
+    --stage-ink: color-mix(in srgb, var(--accent) 72%, var(--foreground));
+    --stage-line: color-mix(in srgb, var(--accent) 9%, transparent);
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: var(--card);
+    box-shadow: 0 26px 52px -48px rgb(23 50 74 / .55);
+    scroll-margin-top: 24px;
+  }
+  :global([data-theme="dark"]) .work-file {
+    --stage-bg: color-mix(in srgb, var(--accent) 8%, var(--card));
+    --stage-ink: color-mix(in srgb, var(--accent) 78%, var(--foreground));
+    --stage-line: color-mix(in srgb, var(--accent) 11%, transparent);
+    box-shadow: 0 26px 60px -48px rgb(0 0 0 / .9);
+  }
+
+  /* ── 顶部标题条：编号 + 图标 + 名称 + 分类 ── */
+  .work-bar {
+    display: flex; align-items: center; gap: 14px;
+    padding: 15px clamp(20px, 2.4vw, 32px);
+    border-bottom: 1px solid var(--border);
+  }
+  .work-number {
+    display: grid; place-items: center;
+    width: 38px; height: 38px; flex-shrink: 0;
+    border: 1px solid var(--border); border-radius: 10px;
+    font-family: var(--mono); font-size: 12px; font-weight: 600; letter-spacing: .05em;
+    color: var(--accent); background: var(--muted);
+  }
+  .work-identity { display: flex; align-items: center; gap: 12px; min-width: 0; }
+  .work-icon { width: 40px; height: 40px; flex-shrink: 0; border-radius: 9px; }
+  .work-identity h2 { font-size: clamp(22px, 2vw, 26px); font-weight: 720; letter-spacing: -.03em; line-height: 1.15; }
+  .work-category {
+    margin-left: auto; display: flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 12px; color: var(--muted-foreground); white-space: nowrap;
+  }
+  .work-category::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); opacity: .65; }
+
+  /* ── 主体两栏：左侧信息列 / 右侧界面预览 ── */
+  .work-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    grid-template-areas: "info gallery";
+  }
+  .work-info {
+    grid-area: info; min-width: 0;
+    display: flex; flex-direction: column; align-items: flex-start;
+    padding: clamp(24px, 2.8vw, 38px) clamp(22px, 2.6vw, 38px) clamp(24px, 2.6vw, 34px);
+  }
+  .work-headline { font-size: clamp(24px, 2.2vw, 30px); font-weight: 730; letter-spacing: -.035em; line-height: 1.4; text-wrap: balance; }
+  .work-description { margin-top: 14px; font-size: 15px; line-height: 1.9; color: var(--muted-foreground); text-wrap: pretty; }
+  .work-note { margin: 24px 0 0; padding-left: 16px; border-left: 2px solid color-mix(in srgb, var(--accent) 45%, transparent); }
+  .work-note blockquote { margin: 0; font-size: 15.5px; font-weight: 650; letter-spacing: -.01em; line-height: 1.6; }
+  .work-note figcaption { margin-top: 6px; font-size: 13.5px; line-height: 1.7; color: var(--muted-foreground); }
+  .work-facts { margin: 24px 0 0; width: 100%; border-top: 1px solid var(--border); }
+  .work-facts > div { display: flex; align-items: baseline; gap: 18px; padding: 11px 0; border-bottom: 1px solid var(--border); }
+  .work-facts dt { flex: 0 0 60px; font-family: var(--mono); font-size: 12px; letter-spacing: .08em; color: var(--muted-foreground); }
+  .work-facts dd { margin: 0; font-size: 14px; line-height: 1.65; }
+  .work-actions { margin-top: auto; padding-top: 26px; }
+  .work-links { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+  .work-link {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    min-height: 44px; padding: 0 18px;
+    font-size: 14px; font-weight: 650;
+    border: 1px solid var(--border); border-radius: 10px; color: var(--foreground);
+    transition: background .18s ease, border-color .18s ease, transform .18s ease;
+  }
+  .work-link svg { width: 17px; height: 17px; flex-shrink: 0; }
+  .work-link:hover { background: var(--muted); border-color: color-mix(in srgb, var(--accent) 35%, var(--border)); transform: translateY(-1px); }
+  .work-link:active { transform: translateY(0); }
+  .work-link-primary { background: var(--accent); border-color: transparent; color: var(--accent-foreground); }
+  .work-link-primary:hover { background: color-mix(in srgb, var(--accent) 86%, var(--foreground)); border-color: transparent; }
+  .work-compatibility { margin-top: 14px; font-family: var(--mono); font-size: 12px; letter-spacing: .02em; color: var(--muted-foreground); }
+
+  /* ── 右侧预览区：淡蓝晒图底 + 细网格 + 立体截图 ── */
+  .gallery {
+    grid-area: gallery; position: relative; min-width: 0;
+    display: flex; flex-direction: column;
+    padding: clamp(18px, 2vw, 26px) clamp(18px, 2.2vw, 30px) clamp(16px, 1.8vw, 22px);
+    background-color: var(--stage-bg);
+    background-image:
+      linear-gradient(to right, var(--stage-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--stage-line) 1px, transparent 1px);
+    background-size: 26px 26px;
+    border-left: 1px solid var(--border);
+  }
+  .gallery-topline { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .gallery-kicker {
+    display: flex; align-items: center; gap: 9px;
+    font-family: var(--mono); font-size: 11.5px; font-weight: 600; letter-spacing: .16em;
+    color: var(--stage-ink); text-transform: uppercase;
+  }
+  .gallery-kicker::before { content: ""; width: 18px; height: 1px; background: currentColor; opacity: .55; }
+  .expand-link {
+    display: inline-flex; align-items: center; gap: 7px;
+    min-height: 30px; padding: 0 2px;
+    font-size: 12.5px; font-weight: 600; color: var(--stage-ink);
+    transition: color .16s ease;
+  }
+  .expand-link svg { width: 15px; height: 15px; }
+  .expand-link:hover { color: var(--foreground); }
+  .gallery-stage {
+    flex: 1; display: grid; place-items: center;
+    min-height: 0; padding: 20px 2px 18px;
+  }
+  .gallery-panel { display: grid; place-items: center; width: 100%; height: 100%; min-height: 0; }
+  .gallery-image-link { display: grid; place-items: center; width: 100%; height: 100%; min-height: 0; border-radius: 10px; }
+  .gallery-panel[hidden] { display: none; }
+  .gallery-panel img {
+    display: block; object-fit: contain;
+    max-width: 100%; max-height: clamp(300px, 32vw, 460px);
+    width: auto; height: auto; border-radius: 10px;
+    box-shadow: 0 24px 48px -24px rgb(23 50 74 / .42), 0 0 0 1px rgb(23 50 74 / .06);
+    transition: transform .25s ease;
+  }
+  :global([data-theme="dark"]) .gallery-panel img {
+    box-shadow: 0 26px 52px -26px rgb(0 0 0 / .75), 0 0 0 1px rgb(255 255 255 / .07);
+  }
+  .gallery-panel:hover img { transform: translateY(-3px); }
+  .gallery-panel.is-entering img { animation: screen-in .25s ease both; }
+  .gallery-bottom { padding-top: 2px; }
+  .gallery-tabs {
+    display: flex; gap: 4px; padding: 4px;
+    border: 1px solid var(--border); border-radius: 11px;
+    background: color-mix(in srgb, var(--card) 72%, transparent);
+  }
+  .gallery-tab {
+    flex: 1; display: inline-flex; align-items: center; justify-content: center;
+    min-height: 36px; padding: 7px 10px; border-radius: 8px;
+    font-size: 12.5px; font-weight: 600; color: var(--stage-ink); white-space: nowrap;
+    transition: background .16s ease, color .16s ease, box-shadow .16s ease;
+  }
+  .gallery-tab:hover { background: color-mix(in srgb, var(--card) 88%, transparent); color: var(--foreground); }
+  .gallery-tab.is-active { background: var(--accent); color: var(--accent-foreground); box-shadow: 0 8px 16px -12px rgb(23 50 74 / .7); }
+  :global([data-theme="dark"]) .gallery-tab.is-active { box-shadow: 0 8px 16px -12px rgb(0 0 0 / .8); }
+  .gallery-caption { margin-top: 11px; text-align: center; font-size: 12.5px; line-height: 1.6; color: var(--stage-ink); }
+
+  /* ── 大图弹层 ── */
+  .image-dialog {
+    position: fixed; inset: 0; margin: auto; padding: 0;
+    width: min(1320px, calc(100vw - 48px)); max-width: none; max-height: calc(100dvh - 48px);
+    background: var(--card); color: var(--foreground);
+    border: 1px solid var(--border); border-radius: 16px;
+    box-shadow: 0 40px 90px -30px rgb(7 20 33 / .6);
+  }
+  .image-dialog::backdrop { background: rgb(7 20 33 / .82); }
+  .dialog-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 12px 16px 12px 24px; }
+  .dialog-title { font-size: 16px; font-weight: 600; }
+  .dialog-controls { display: flex; gap: 6px; }
+  .dialog-controls button { display: grid; place-items: center; width: 40px; height: 40px; background: transparent; color: inherit; border: 0; border-radius: 8px; }
+  .dialog-controls button:hover { background: var(--muted); }
+  .dialog-controls svg { width: 22px; height: 22px; }
+  .dialog-image-wrap { padding: 0 24px 24px; }
+  .dialog-image { display: block; width: 100%; height: auto; max-height: calc(100dvh - 136px); object-fit: contain; }
+
+  /* ── 响应式 ── */
+  @media (max-width: 1024px) {
+    .work-grid { grid-template-columns: 1fr; grid-template-areas: "gallery" "info"; }
+    .gallery { border-left: 0; border-bottom: 1px solid var(--border); }
+    .gallery-panel img { max-height: clamp(260px, 44vw, 420px); }
+  }
+  @media (max-width: 640px) {
+    .work-file { border-radius: 14px; }
+    .work-bar { flex-wrap: wrap; gap: 10px 12px; padding: 14px 18px; }
+    .work-number { width: 34px; height: 34px; }
+    .work-icon { width: 36px; height: 36px; }
+    .work-identity h2 { font-size: 21px; }
+    .work-category { flex-basis: 100%; margin-left: 0; padding-left: 46px; }
+    .work-info { padding: 22px 18px 24px; }
+    .work-headline { font-size: 22px; }
+    .gallery { padding: 14px 14px 14px; }
+    .gallery-stage { padding: 16px 0 14px; }
+    .gallery-panel img { max-height: clamp(220px, 56vw, 360px); }
+    .gallery-tabs { flex-wrap: wrap; }
+    .gallery-tab { flex: 1 1 40%; min-height: 38px; }
+    .image-dialog { width: calc(100vw - 20px); max-height: calc(100dvh - 20px); border-radius: 12px; }
+    .dialog-toolbar { padding: 10px 12px; }
+    .dialog-image-wrap { padding: 0 10px 14px; }
+    .dialog-image { max-height: calc(100dvh - 100px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .work-link, .gallery-tab, .gallery-panel img { transition: none; }
+    .gallery-panel.is-entering img { animation: none; }
+  }
+</style>
