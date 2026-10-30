@@ -1,23 +1,23 @@
 ---
-title: "【实践应用】搭建 Ubuntu APT 内网依赖库"
+title: "Ubuntu - 搭建 APT 内网依赖库"
 description: "在企业的内网生产环境中，服务器通常无法直接访问互联网，这给软件包的安装和更新带来了巨大挑战。传统的做法是在每台机器上单独上传 .deb​ 包并通过 dpkg -i​ 安装，但这种方式不仅效率低下，而且难以处理复杂的依赖关系。本文旨在提供一套完整的 Ubuntu 离线镜像源搭建方案，帮助运维人员在内网环境中快速部署本地 "
 pubDate: 2026-10-08
-updatedDate: 2026-10-09
-category: "系统运维与部署"
-tags: ["Ubuntu", "APT", "软件包仓库", "离线部署"]
+updatedDate: 2026-10-30
+category: "操作系统"
+tags: ["运维", "DevOps", "linux"]
 draft: false
 source: "siyuan"
 siyuanId: "20260828211046-v1baw4b"
 slug: "linux-8adb418f"
-sourceHash: "sha256:fba85f3b3f5aabc189f4c18723de881f82904d8c49317baad295d0239304845a"
+sourceHash: "sha256:06d05e6bc014ec48c3697b13039bff365a7addb0bf6673119ae2e5a140f69f3c"
 ---
-## 前言
+## 1 前言
 
 在企业的内网生产环境中，服务器通常无法直接访问互联网，这给软件包的安装和更新带来了巨大挑战。传统的做法是在每台机器上单独上传 `.deb`​ 包并通过 `dpkg -i`​ 安装，但这种方式不仅效率低下，而且难以处理复杂的依赖关系。本文旨在提供一套完整的 Ubuntu 离线镜像源搭建方案，帮助运维人员在内网环境中快速部署本地 APT 仓库，实现 `apt-get install` 的丝滑体验。
 
 本文将从两种典型场景入手：一是​**手动构建轻量级镜像源**​，使用 `reprepro`​ 工具从零创建仅包含常用软件包及其依赖的本地仓库，整体大小控制在 1GB 以内，适用于大多数中小型内网环境；二是​**完整同步官方镜像源**​，使用 `apt-mirror`​ 工具完整镜像 Ubuntu 24.04 官方仓库，适用于需要全量软件包支持的大型生产环境。无论您选择哪种方式，最终都将通过 Nginx 对外提供服务，使内网任意机器仅需配置本地源地址即可享受与外网无异的 `apt` 使用体验。
 
-## 环境准备
+## 2 环境准备
 
 这里需要说明一下，就是内外网得环境和系统版本均要保持一致，不一致同步会出现问题。
 
@@ -47,16 +47,16 @@ sourceHash: "sha256:fba85f3b3f5aabc189f4c18723de881f82904d8c49317baad295d0239304
     │                                     └─ 9. apt-get install 测试
 ```
 
-## 外网机器：下载镜像源
+## 3 外网机器：下载镜像源
 
-### 安装apt-mirror
+### 3.1 安装apt-mirror
 
 ```bash
 sudo apt update
 sudo apt install apt-mirror
 ```
 
-### 配置软件包镜像源
+### 3.2 配置软件包镜像源
 
 注意，这里要说明一下`sources.list`​ 和 `mirror.list`​ 得区别，`sources.list`​是告诉你的电脑去哪里下载软件包的“购物清单”，而`mirror.list`则是用于创建你自己的“本地仓库”的“进货清单”。
 
@@ -76,7 +76,7 @@ sudo apt update
 sudo apt upgrade
 ```
 
-### 配置下载包镜像源
+### 3.3 配置下载包镜像源
 
 ```bash
 # 这里以Ubuntu24.04为例，只镜像amd64架构以节省空间
@@ -96,7 +96,7 @@ clean https://mirrors.cloud.tencent.com/ubuntu
 EOF
 ```
 
-### 同步ubuntu镜像源到本地。
+### 3.4 同步ubuntu镜像源到本地。
 
 1、下载 ubuntu 镜像源到本地。首次同步时间很长（可能几小时到十几小时），取决于网络速度和镜像大小（约80-150GB）。
 
@@ -130,7 +130,7 @@ sudo tar -czvf ubuntu_mirror.tar.gz -C /var/spool/apt-mirror/mirror .
     └── multiverse/
 ```
 
-### 同步个别软件包模拟Ubuntu镜像源到本地
+### 3.5 同步个别软件包模拟Ubuntu镜像源到本地
 
 这里使用`reprepro`构建完整仓库目录结构，做到和ubuntu镜像源仓库目录结构一模一样，APT 就能正确识别并使用了。
 
@@ -207,7 +207,7 @@ cd ~
 tar -czf ubuntu_mirror.tar.gz ubuntu_mirror/
 ```
 
-### 同步个别软件包镜像源到本地。
+### 3.6 同步个别软件包镜像源到本地。
 
 这里用来只下载几个软件包到本地，用来模拟ubuntu镜像源同步，节省测试时间。
 
@@ -301,9 +301,9 @@ tar -czf ubuntu_mirror.tar.gz ubuntu_mirror/
 # 通过SCP或U盘等方式将 ubuntu_mirror.tar.gz 传输到内网服务器
 ```
 
-## 内网机器：部署镜像源
+## 4 内网机器：部署镜像源
 
-### 解压离线包
+### 4.1 解压离线包
 
 ```bash
 # 将 tar.gz 文件解压到用户目录
@@ -311,7 +311,7 @@ cd ~
 tar -xzf ubuntu_mirror.tar.gz
 ```
 
-### 安装Nginx
+### 4.2 安装Nginx
 
 注意，使用dpkg -i *.deb 的目的是把所有依赖包一并安装，免得出现有的依赖包又依赖其他包的问题。
 
@@ -328,7 +328,7 @@ yxw@ubuntu-192:~/ubuntu_mirror/pool/main$ nginx -v
 nginx version: nginx/1.24.0 (Ubuntu)
 ```
 
-### 启动Nginx服务
+### 4.3 启动Nginx服务
 
 ```bash
 # 启动nginx
@@ -341,7 +341,7 @@ sudo systemctl enable nginx
 sudo systemctl status nginx
 ```
 
-### 配置Nginx显示镜像源目录列表
+### 4.4 配置Nginx显示镜像源目录列表
 
 1、将镜像源内容复制到Nginx根目录中。
 
@@ -422,9 +422,9 @@ yxw@ubuntu-192:~$ curl http://localhost/
 
 ![image](/images/blog/linux-8adb418f/image-20260829161256-jmtsqa8.png)
 
-## 内网机器：使用镜像源
+## 5 内网机器：使用镜像源
 
-### 配置APT源
+### 5.1 配置APT源
 
 在一台新的内网机器上配置已部署好的ubuntu镜像源：
 
@@ -444,7 +444,7 @@ deb [trusted=yes] http://192.168.139.101/archive.ubuntu.com/ubuntu noble-backpor
 EOF
 ```
 
-### 更新并安装
+### 5.2 更新并安装
 
 ```bash
 # 更新并安装

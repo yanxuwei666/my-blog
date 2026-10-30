@@ -1,30 +1,30 @@
 ---
-title: "【实践应用】为 DeepSeek Harness 构建 Debian 包"
+title: "DeepSeek Harness - 构建 Debian 安装包"
 description: "目前 DeepSeek Harnesee 非常的火热，但是它只支持两种安装方式，一种是 npm 一种是源码安装，这两种方式对于开发人员还好，但是对于不懂技术的人员来说上手还是有些门槛，所以有必要将已有的 DSH 打包成通用的 Deb 包直接发给别人直接使用更加方便。"
 pubDate: 2026-10-08
-updatedDate: 2026-10-09
-category: "AI 大模型"
-tags: ["DeepSeek Harness", "AI 工具", "Debian", "Linux"]
+updatedDate: 2026-10-30
+category: "AI工程与智能体"
+tags: ["deepseek", "harness", "linux", "debian"]
 draft: false
 source: "siyuan"
 siyuanId: "20260826094051-8ophd7i"
 slug: "deepseek-harness-deb-05e2f11a"
-sourceHash: "sha256:f014dfd34debbe2e8e8ed6679a898f5528242b5e97efedaba5368c3219f78947"
+sourceHash: "sha256:f83b3d9f7f26e5beeafa203f1dbae691dcc9a06965faf8bcc9f4322ed5fa41ee"
 ---
-## 前言
+## 1 前言
 
 目前 DeepSeek Harnesee 非常的火热，但是它只支持两种安装方式，一种是 npm 一种是源码安装，这两种方式对于开发人员还好，但是对于不懂技术的人员来说上手还是有些门槛，所以有必要将已有的 DSH 打包成通用的 Deb 包直接发给别人直接使用更加方便。
 
-## 执行步骤
+## 2 执行步骤
 
-### 安装构建依赖
+### 2.1 安装构建依赖
 
 ```bash
 sudo apt update
 sudo apt install -y ca-certificates curl xz-utils dpkg-dev build-essential python3 pkg-config
 ```
 
-### 编写 Deb 生成脚本
+### 2.2 编写 Deb 生成脚本
 
 在用户家目录下新建一个独立目录例如 `dsh-linux-packaging`​，然后创建 `build-deb.sh`，脚本内容如下：
 
@@ -322,7 +322,7 @@ echo "内网说明：普通 dsh / dsh web 不再访问 npm registry。"
 echo "仅 \`dsh plugin add <包>\` 安装第三方插件时才需要可达的 registry。"
 ```
 
-### 构建 Deb 包
+### 2.3 构建 Deb 包
 
 执行命令如下：
 
@@ -336,7 +336,7 @@ chmod +x ~/dsh-linux-packaging/build-deb.sh
 # 生成的产物会在dist目录下有个类似deepseek-harness_0.1.1~rc.2+1_amd64.deb的包
 ```
 
-### 解压缩 Deb 包
+### 2.4 解压缩 Deb 包
 
 执行命令如下：
 
@@ -350,7 +350,7 @@ ll /usr/lib/deepseek-harness
 ll /usr/bin/dsh
 ```
 
-### 清除解压缩的 Deb 包
+### 2.5 清除解压缩的 Deb 包
 
 ```bash
 sudo dpkg -P deepseek-harness

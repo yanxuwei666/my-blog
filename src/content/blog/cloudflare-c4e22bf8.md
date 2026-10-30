@@ -1,17 +1,17 @@
 ---
-title: "【实践应用】用 Cloudflare 部署博客并绑定个人域名"
+title: "Cloudflare - 部署博客并绑定个人域名"
 description: "上大学那会儿，就一直想有个自己的博客网站。最开始在 CSDN 上写，后来搬到博客园，再后来又开始折腾 Hexo、Hugo 这些工具配合 GitHub 搭来搭去。结果呢，文档没写出几篇有用的，博客倒是搭了一版又一版，每次都是推到一半就搁下了。"
 pubDate: 2026-10-08
-updatedDate: 2026-10-09
-category: "云平台与云服务"
-tags: ["Cloudflare Workers", "DNS", "静态网站", "自定义域名"]
+updatedDate: 2026-10-30
+category: "交付运维"
+tags: ["Cloudflare", "个人博客", "网站部署", "域名解析"]
 draft: false
 source: "siyuan"
 siyuanId: "20261008093807-5p5eywf"
 slug: "cloudflare-c4e22bf8"
-sourceHash: "sha256:232e8ee36dff2ea4c8faa228d02569310b12c715c04554f059ace4632aecc9d0"
+sourceHash: "sha256:4cfe9857649aa6ba50c8dbba5c2eed5dc3eba1960c8e5b9d8c4d2236b257835c"
 ---
-## **前言**
+## 1 **前言**
 
 上大学那会儿，就一直想有个自己的博客网站。最开始在 CSDN 上写，后来搬到博客园，再后来又开始折腾 Hexo、Hugo 这些工具配合 GitHub 搭来搭去。结果呢，文档没写出几篇有用的，博客倒是搭了一版又一版，每次都是推到一半就搁下了。
 
@@ -25,7 +25,7 @@ sourceHash: "sha256:232e8ee36dff2ea4c8faa228d02569310b12c715c04554f059ace4632aec
 
 ![image](/images/blog/cloudflare-c4e22bf8/image-20261008112832-k5jdumg.png)
 
-## 方案概述
+## 2 方案概述
 
 这次用的是一份 Astro 静态博客项目：先在本地改好，再推到 GitHub。Cloudflare Workers 从仓库构建并发布静态文件，最后通过自己的域名访问。站点不需要后台或数据库，也不用单独租服务器。
 
@@ -45,7 +45,7 @@ Cloudflare Workers（构建并托管静态站点）
 
 选 Cloudflare 主要是因为部署流程短：代码推到 GitHub 后会自动构建，HTTPS 和代理也由 Cloudflare 处理。这次先用免费方案；如果流量或资源用量增加，再按当前额度和价格评估。
 
-## **准备工作**
+## 3 **准备工作**
 
 动手前先准备域名、GitHub 账号和本地开发环境。这次没有单独租服务器，确定的开销是域名续费；Cloudflare 免费计划有额度限制，使用时以当前说明为准。
 
@@ -55,7 +55,7 @@ Cloudflare Workers（构建并托管静态站点）
 - 本地环境：Node.js 22（仓库通过 .node-version 指定）和 Git。
 - 一个博客项目：本文以基于 Astro 的 my-blog 仓库为例。
 
-## **第一步：搭建本地博客**
+## 4 **第一步：搭建本地博客**
 
 我用的是 [Issue Blog](https://github.com/raclen/issue-blog) 的一个 fork：[yanxuwei666/my-blog](https://github.com/yanxuwei666/my-blog)。它基于 Astro，平时在 GitHub Issue 里写文章；给 Issue 加上 ​`blog` 标签后，GitHub Actions 会把文章同步成仓库里的 Markdown，再由 Cloudflare Workers 构建和部署。文章会保存在 Git 仓库中，不只留在 Issues 里。刚 fork 时，记得到仓库的 Actions 页面启用一次 Sync Issues 工作流。
 
@@ -75,7 +75,7 @@ Cloudflare Workers（构建并托管静态站点）
 
 我没有花太多时间研究项目结构，主要改了几处样式；这些调整先让 AI 帮我试，再按自己的需要挑着改。
 
-## 第二步：部署到 Cloudflare Workers
+## 5 第二步：部署到 Cloudflare Workers
 
 下面按这次使用的控制台流程整理。菜单名称可能会调整，构建和部署命令以仓库 README 为准。
 
@@ -105,15 +105,15 @@ Cloudflare Workers（构建并托管静态站点）
 
 之后把代码推送到 GitHub，Cloudflare 会自动构建并部署新版本。用 GitHub Issue 发文章时，Sync Issues 工作流会先把内容写回仓库，再触发部署。
 
-## **第三步：绑定个人域名**
+## 6 **第三步：绑定个人域名**
 
-### 在云平台上购买域名
+### 6.1 在云平台上购买域名
 
 我在腾讯云购买了 yanxuwei.com，注册商和续费仍留在腾讯云。接下来先把域名接入 Cloudflare，再将 Cloudflare 分配的 nameserver 填回腾讯云。
 
 ![image](/images/blog/cloudflare-c4e22bf8/image-20261008145751-i54f77u.png)
 
-### 在 Cloudflare 添加根域名区域
+### 6.2 在 Cloudflare 添加根域名区域
 
 1、登录 Cloudflare，在域名管理中选择“添加/接入域名”。
 
@@ -139,7 +139,7 @@ Cloudflare Workers（构建并托管静态站点）
 
 首次接入时出现的 AI 搜索/爬虫选项与 Worker 部署无关，按自己的偏好选择即可。
 
-### 在腾讯云把 nameserver 改为 Cloudflare
+### 6.3 在腾讯云把 nameserver 改为 Cloudflare
 
 这一步把 yanxuwei.com 的权威 DNS 解析从腾讯云切到 Cloudflare，不会转移域名注册商。
 
@@ -159,7 +159,7 @@ Cloudflare Workers（构建并托管静态站点）
 
 保存后等待 Cloudflare 将域名状态更新为 Active；DNS 变更生效可能需要一些时间。
 
-### 在 Cloudflare 为博客子域名添加 DNS 记录
+### 6.4 在 Cloudflare 为博客子域名添加 DNS 记录
 
 等 Cloudflare 区域激活后，进入 ​`yanxuwei.com` 的 DNS 记录页面，添加博客子域名记录：
 
@@ -186,7 +186,7 @@ Cloudflare Workers（构建并托管静态站点）
 
 ![image](/images/blog/cloudflare-c4e22bf8/image-20261008152918-9yc4fk1.png)
 
-### 访问验证
+### 6.5 访问验证
 
 浏览器打开 ​`https://blog.yanxuwei.com`，确认博客首页能加载且 HTTPS 没有证书错误。本次访问成功，说明 DNS、代理、Route 和 Worker 的链路已跑通。
 
@@ -201,7 +201,7 @@ curl -I https://blog.yanxuwei.com/
 
 开启代理后，​`dig`​ 通常返回 Cloudflare 的代理 IP，不一定显示 DNS 记录里配置的占位地址。​`curl -I` 应返回 HTTP 响应；再用浏览器确认页面内容和样式正常。
 
-## 第四步：用思源编写文档并同步
+## 7 第四步：用思源编写文档并同步
 
 为了方便个人编写文档及同步，我在自己常用的思源笔记上开发了一个同步插件，可以将思源指定的笔记本下面的一些博客批量上传到本地的 Github 仓库中，并且可以指定分类。
 
@@ -213,17 +213,17 @@ curl -I https://blog.yanxuwei.com/
 
 ![image](/images/blog/cloudflare-c4e22bf8/image-20261008155805-yx6vrza.png)
 
-## **踩坑记录**
+## 8 **踩坑记录**
 
-### 我需要把域名从腾讯云转移到 Cloudflare 吗？
+### 8.1 我需要把域名从腾讯云转移到 Cloudflare 吗？
 
 不需要。腾讯云仍是域名注册商，负责续费；更换的是 DNS nameserver。只有要把注册商也换掉时，才需要办理域名转移。
 
-### 为什么 Cloudflare 扫描到 0 条 DNS 记录？
+### 8.2 为什么 Cloudflare 扫描到 0 条 DNS 记录？
 
 新购域名可能还没有网站或邮箱的 DNS 记录，因此扫描结果会是 0 条。若 Cloudflare 接入向导要求先添加记录，可按上文添加临时占位记录；不要把占位地址当成真实源站。
 
-## **总结与后续**
+## 9 **总结与后续**
 
 - 完整流程：准备博客仓库 → Cloudflare Workers 连接 GitHub → 部署验证 → 接入域名并配置 DNS。
 - 这次没有单独租服务器，实际支出是域名费用；Cloudflare 的额度和价格以部署时的官方说明为准。
