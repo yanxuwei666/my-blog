@@ -7,10 +7,10 @@
       "slug": "linux-8adb418f",
       "pubDate": "2026-10-08",
       "updatedDate": "2026-10-30",
-      "sourceHash": "sha256:06d05e6bc014ec48c3697b13039bff365a7addb0bf6673119ae2e5a140f69f3c",
-      "contentHash": "sha256:5ed7fe62e8b976dd6d07666158b7b1fa8b6d96786d9020d84a3f357619a8d2e4",
+      "sourceHash": "sha256:e45eb2e3b6bdf4c5734e3ffe8f88fcf4c49b4c9dd484b09ca440073c43470771",
+      "contentHash": "sha256:606965c1e77cc3425d707963df1b96e49b40784e81c0d7da37da9c9c27d36079",
       "syncDateVersion": 1,
-      "lastSyncAt": "2026-10-30T01:41:37.397Z",
+      "lastSyncAt": "2026-10-30T03:15:32.495Z",
       "assets": [
         {
           "targetPath": "public/images/blog/linux-8adb418f/image-20260829161256-jmtsqa8.png",
@@ -24,10 +24,10 @@
       "slug": "linux-05f72913",
       "pubDate": "2026-10-08",
       "updatedDate": "2026-10-30",
-      "sourceHash": "sha256:46c9183fcc64c4056f0497eac1325621fe05243b658815df0e65a04e92dfdbb4",
-      "contentHash": "sha256:9f57c73e4118dd006946f8fba0b915617a79c64fff797e82b73bd83fa105ab12",
+      "sourceHash": "sha256:39755ed995ad9ab09c438a62c0dbdc9b802134243eb6f2a64ebe80bb554a16d7",
+      "contentHash": "sha256:d489d7dba1c298e1643dfa1cf02d63f2def74019e377b5f1321f443694e54eb0",
       "syncDateVersion": 1,
-      "lastSyncAt": "2026-10-30T01:41:37.397Z",
+      "lastSyncAt": "2026-10-30T03:15:32.495Z",
       "assets": [
         {
           "targetPath": "public/images/blog/linux-05f72913/image-20260828204543-c4q9urs.png",
@@ -191,5 +191,5 @@
       "assets": []
     }
   },
-  "updatedAt": "2026-10-30T01:46:55.663Z"
+  "updatedAt": "2026-10-30T03:15:32.495Z"
 }

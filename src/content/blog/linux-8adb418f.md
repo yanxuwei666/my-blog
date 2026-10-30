@@ -1,15 +1,15 @@
 ---
-title: "Ubuntu - 搭建 APT 内网依赖库"
+title: "Linux - 基于 Ubuntu 搭建内网依赖库"
 description: "在企业的内网生产环境中，服务器通常无法直接访问互联网，这给软件包的安装和更新带来了巨大挑战。传统的做法是在每台机器上单独上传 .deb​ 包并通过 dpkg -i​ 安装，但这种方式不仅效率低下，而且难以处理复杂的依赖关系。本文旨在提供一套完整的 Ubuntu 离线镜像源搭建方案，帮助运维人员在内网环境中快速部署本地 "
 pubDate: 2026-10-08
 updatedDate: 2026-10-30
-category: "操作系统"
+category: "交付运维"
 tags: ["运维", "DevOps", "linux"]
 draft: false
 source: "siyuan"
 siyuanId: "20260828211046-v1baw4b"
 slug: "linux-8adb418f"
-sourceHash: "sha256:06d05e6bc014ec48c3697b13039bff365a7addb0bf6673119ae2e5a140f69f3c"
+sourceHash: "sha256:e45eb2e3b6bdf4c5734e3ffe8f88fcf4c49b4c9dd484b09ca440073c43470771"
 ---
 ## 1 前言
 
