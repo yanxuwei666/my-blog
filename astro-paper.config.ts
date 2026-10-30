@@ -7,7 +7,7 @@ export default defineAstroPaperConfig({
     description: "记录真实工程问题、排查路径与可落地的技术方案。",
     author: "奋斗的小猴子",
     authorBio: "记录代码实践，分享成长路上的每一步",
-    authorAvatar: "/images/shiba-avatar.png",
+    authorAvatar: "/images/blog-monkey.png",
     profile: "https://github.com/yanxuwei666",
     lang: "zh-CN",
     timezone: "Asia/Shanghai",

@@ -9,6 +9,7 @@ import FuwariTagsWidget from "@/components/fuwari/FuwariTagsWidget.astro";
 import config from "@/config";
 
 interface Props {
+  home?: boolean;
   title?: string;
   description?: string;
   postsCount?: number;
@@ -18,6 +19,7 @@ interface Props {
 }
 
 const {
+  home = false,
   title = `${config.site.title} - 博客`,
   description = config.site.description,
   postsCount = 0,
@@ -31,25 +33,18 @@ const {
   <!-- 顶部全局导航栏 -->
   <Header />
 
-  <!-- 主容器宽度由 site.pageWidth 控制；左侧固定 17.5rem -->
-  <div class="page-shell pb-16 pt-4">
-    <div class="grid grid-cols-1 items-start gap-4 lg:grid-cols-[17.5rem_1fr]">
-      <!-- 左侧边栏 (Profile + 归档挂件 + 标签挂件) -->
-      <aside class="order-2 w-full space-y-4 lg:sticky lg:top-5 lg:order-1">
-        <FuwariProfile
-          postsCount={postsCount}
-          categoriesCount={categories.length}
-          tagsCount={tags.length}
-        />
+  <div class:list={["page-shell pb-16 pt-4", { "blog-home": home }]}>
+    <div class:list={home ? "home-columns" : "grid grid-cols-1 items-start gap-4 lg:grid-cols-[17.5rem_1fr]"}>
+      <aside
+        class:list={home ? "home-sidebar space-y-4" : "order-2 w-full space-y-4 lg:sticky lg:top-5 lg:order-1"}
+        aria-label="博主介绍、文章分类与归档"
+      >
+        <FuwariProfile postsCount={postsCount} categoriesCount={categories.length} tagsCount={tags.length} />
         <FuwariArchiveWidget years={years} />
-        <FuwariCategoryWidget categories={categories} />
+        <FuwariCategoryWidget categories={categories} limit={home ? 12 : 8} />
         <FuwariTagsWidget tags={tags} />
       </aside>
-
-      <!-- 右侧主内容区 (文章 Bento 卡片流) -->
-      <main class="order-1 lg:order-2 min-w-0">
-        <slot />
-      </main>
+      <main class:list={home ? "home-main min-w-0" : "order-1 lg:order-2 min-w-0"}><slot /></main>
     </div>
   </div>
 

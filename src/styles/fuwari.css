@@ -70,3 +70,27 @@
     }
   }
 }
+
+/* 首页：个人介绍与文章阅读栏 */
+.home-columns { display: grid; grid-template-columns: 17.5rem minmax(0, 1fr); align-items: start; gap: 1rem; }
+.home-main { border-radius: 1rem; background: var(--card); padding: 0 1.75rem; }
+.blog-home .post-list { display: flow-root; }
+.blog-home .post-list > article, .blog-home .post-list > div > article {
+  margin: 0; border: 0; border-bottom: 1px solid var(--border); border-radius: 0; box-shadow: none; background: transparent; transform: none;
+}
+.blog-home .post-list > article > div, .blog-home .post-list > div > article > div { padding: 1.35rem .1rem; }
+.blog-home .post-list > article h3 { font-size: 1.4rem; }
+.blog-home .post-list > article > div > div > div:first-child { font-size: .8rem; }
+.blog-home .post-list > article p { font-size: .95rem; line-height: 1.7; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.blog-home .post-list > article > div > div:last-child { border: 0; padding-top: 0; }
+.blog-home .home-sidebar .fuwari-card { box-shadow: none; }
+@media (max-width: 1023px) {
+  .home-columns { grid-template-columns: minmax(0, 1fr); }
+  .home-sidebar { order: 2; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  .home-main { order: 1; }
+  .home-sidebar > * { margin: 0 !important; }
+}
+@media (max-width: 600px) {
+  .home-main { padding: 0 1rem; }
+  .home-sidebar { grid-template-columns: 1fr; }
+}

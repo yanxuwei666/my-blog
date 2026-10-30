@@ -12,7 +12,7 @@ const { page, withYearAnchors = false } = Astro.props;
 const isLastPage = !page.url.next;
 ---
 
-<div id="post-list" class="space-y-4">
+<div id="post-list" class="post-list space-y-4">
   {page.data.map((post, index) => {
     const year = post.data.pubDate.getFullYear().toString();
     const previousYear = index > 0

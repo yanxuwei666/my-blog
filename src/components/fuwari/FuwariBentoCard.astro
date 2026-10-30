@@ -18,7 +18,8 @@ const reading = getReadingTime(body || "");
 const postUrl = `/blog/${id.replace(/\.(md|mdx)$/i, "")}/`;
 ---
 
-<article class="fuwari-card fuwari-card-hover group relative mb-3 flex flex-col overflow-hidden">
+<article class="post-card fuwari-card fuwari-card-hover group relative mb-3 flex flex-col overflow-hidden">
+  <a href={postUrl} class="post-card-overlay" tabindex="-1" aria-hidden="true"></a>
 
   <!-- 文章信息主体 -->
   <div class="flex-1 p-4 sm:p-5">
@@ -132,3 +133,16 @@ const postUrl = `/blog/${id.replace(/\.(md|mdx)$/i, "")}/`;
     </div>
   </div>
 </article>
+
+<style>
+  .post-card-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .post-card a:not(.post-card-overlay) {
+    position: relative;
+    z-index: 2;
+  }
+</style>
